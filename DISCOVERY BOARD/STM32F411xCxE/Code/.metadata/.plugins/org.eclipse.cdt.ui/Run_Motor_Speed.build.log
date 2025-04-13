@@ -1,0 +1,20 @@
+05:22:33 **** Build of configuration Debug for project Run_Motor_Speed ****
+make -j12 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f411vetx.d" -MT"Startup/startup_stm32f411vetx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f411vetx.o" "../Startup/startup_stm32f411vetx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc -o "Run_Motor_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Speed.elf  > "Run_Motor_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+    900	      0	   1568	   2468	    9a4	Run_Motor_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Speed.list
+ 
+
+05:22:34 Build Finished. 0 errors, 0 warnings. (took 504ms)
+

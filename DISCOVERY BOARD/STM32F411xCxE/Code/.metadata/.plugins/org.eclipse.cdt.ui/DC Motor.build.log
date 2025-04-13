@@ -1,0 +1,17 @@
+03:32:13 **** Build of configuration Debug for project DC Motor ****
+make -j12 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f411vetx.d" -MT"Startup/startup_stm32f411vetx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f411vetx.o" "../Startup/startup_stm32f411vetx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"../"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"../"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"../"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"../"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"../"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"../"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+cc1.exe: error: ../C:/Users/prave/Documents/STM: Invalid argument
+cc1.exe: error: ../C:/Users/prave/Documents/STM: Invalid argument
+make: *** [Src/subdir.mk:25: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+cc1.exe: error: ../C:/Users/prave/Documents/STM: Invalid argument
+make: *** [Src/subdir.mk:25: Src/syscalls.o] Error 1
+make: *** [Src/subdir.mk:25: Src/sysmem.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+03:32:13 Build Failed. 4 errors, 0 warnings. (took 198ms)
+

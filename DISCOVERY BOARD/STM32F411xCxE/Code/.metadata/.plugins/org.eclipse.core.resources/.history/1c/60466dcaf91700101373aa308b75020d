@@ -1,0 +1,66 @@
+#include "stm32f4xx.h"
+
+#define GPIODEN     (1U<<3)
+#define Motor_EN_1  (1U<<12)
+#define IN_1        (1U<<13)
+#define IN_2        (1U<<15)
+
+void GPIO_Init(void);
+void Run_Forward(void);
+void Run_Backward(void);
+void Set_Speed(uint8_t duty_cycle); // 0 - 100
+void Delay(volatile uint32_t time);
+
+int main(void) {
+    GPIO_Init();
+
+    while (1) {
+        Run_Forward();
+        for (int speed = 0; speed <= 100; speed += 20) {
+            for (int i = 0; i < 200; i++) // repeat PWM cycle
+                Set_Speed(speed);
+            Delay(500000);
+        }
+
+        Run_Backward();
+        for (int speed = 100; speed >= 0; speed -= 20) {
+            for (int i = 0; i < 200; i++)
+                Set_Speed(speed);
+            Delay(500000);
+        }
+    }
+}
+
+void GPIO_Init(void) {
+    RCC->AHB1ENR |= GPIODEN;
+
+    // Set PD12, PD13, PD15 as output
+    GPIOD->MODER |= (1<<24) | (1<<26) | (1<<30);
+    GPIOD->MODER &= ~((1<<25) | (1<<27) | (1<<31));
+}
+
+void Run_Forward(void) {
+    GPIOD->BSRR = IN_1;       // Set IN1
+    GPIOD->BSRR = (1<<31);    // Reset IN2
+}
+
+void Run_Backward(void) {
+    GPIOD->BSRR = IN_2;       // Set IN2
+    GPIOD->BSRR = (1<<29);    // Reset IN1
+}
+
+void Set_Speed(uint8_t duty_cycle) {
+    if (duty_cycle > 100) duty_cycle = 100;
+
+    uint32_t on_time = duty_cycle * 10;
+    uint32_t off_time = (100 - duty_cycle) * 10;
+
+    GPIOD->BSRR = Motor_EN_1;   // Motor ON
+    Delay(on_time);
+    GPIOD->BSRR = (1<<28);      // Motor OFF
+    Delay(off_time);
+}
+
+void Delay(volatile uint32_t time) {
+    while (time--);
+}

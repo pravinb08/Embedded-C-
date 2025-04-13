@@ -1,0 +1,17 @@
+05:43:40 **** Incremental Build of configuration Debug for project Run_Motor_Var_Speed ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Run_Motor_Var_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Var_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Var_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Var_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Var_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Var_Speed.elf  > "Run_Motor_Var_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+   1192	      0	   1568	   2760	    ac8	Run_Motor_Var_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Var_Speed.list
+ 
+
+05:43:40 Build Finished. 0 errors, 0 warnings. (took 509ms)
+

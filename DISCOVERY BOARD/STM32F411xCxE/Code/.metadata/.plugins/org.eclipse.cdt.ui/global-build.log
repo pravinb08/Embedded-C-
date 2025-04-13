@@ -1,0 +1,165 @@
+05:22:31 **** Clean-only build of configuration Debug for project Run_Motor_Speed ****
+make -j12 clean 
+rm -rf ./Startup/startup_stm32f411vetx.d ./Startup/startup_stm32f411vetx.o
+rm -rf ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+rm -rf Run_Motor_Speed.elf Run_Motor_Speed.list Run_Motor_Speed.map default.size.stdout
+ 
+05:22:33 **** Build of configuration Debug for project Run_Motor_Speed ****
+make -j12 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f411vetx.d" -MT"Startup/startup_stm32f411vetx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f411vetx.o" "../Startup/startup_stm32f411vetx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc -o "Run_Motor_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Speed.elf  > "Run_Motor_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+    900	      0	   1568	   2468	    9a4	Run_Motor_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Speed.list
+ 
+05:24:37 **** Build of configuration Debug for project Run_Motor_Var_Speed ****
+make -j12 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f411vetx.d" -MT"Startup/startup_stm32f411vetx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f411vetx.o" "../Startup/startup_stm32f411vetx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+../Src/main.c:22:4: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   22 |   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |    ^~~~~~~
+arm-none-eabi-gcc -o "Run_Motor_Var_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Var_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Var_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Var_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Var_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Var_Speed.elf  > "Run_Motor_Var_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+    668	      0	   1568	   2236	    8bc	Run_Motor_Var_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Var_Speed.list
+ 
+05:24:42 **** Incremental Build of configuration Debug for project Run_Motor_Var_Speed ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+In file included from ../Src/main.c:1:
+C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include/stm32f4xx.h:174:2: error: #error "Please select first the target STM32F4xx device used in your application (in stm32f4xx.h file)"
+  174 | #error "Please select first the target STM32F4xx device used in your application (in stm32f4xx.h file)"
+      |  ^~~~~
+../Src/main.c:11:16: error: unknown type name 'uint8_t'
+   11 | void Set_Speed(uint8_t duty_cycle); // 0 - 100
+      |                ^~~~~~~
+../Src/main.c:2:1: note: 'uint8_t' is defined in header '<stdint.h>'; did you forget to '#include <stdint.h>'?
+    1 | #include "stm32f4xx.h"
+  +++ |+#include <stdint.h>
+    2 | 
+../Src/main.c:12:21: error: unknown type name 'uint32_t'
+   12 | void Delay(volatile uint32_t time);
+      |                     ^~~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:21:17: warning: implicit declaration of function 'Set_Speed' [-Wimplicit-function-declaration]
+   21 |                 Set_Speed(speed);
+      |                 ^~~~~~~~~
+../Src/main.c: In function 'GPIO_Init':
+../Src/main.c:35:5: error: 'RCC' undeclared (first use in this function)
+   35 |     RCC->AHB1ENR |= GPIODEN;
+      |     ^~~
+../Src/main.c:35:5: note: each undeclared identifier is reported only once for each function it appears in
+../Src/main.c:38:5: error: 'GPIOD' undeclared (first use in this function); did you mean 'GPIODEN'?
+   38 |     GPIOD->MODER |= (1<<24) | (1<<26) | (1<<30);
+      |     ^~~~~
+      |     GPIODEN
+../Src/main.c: In function 'Run_Forward':
+../Src/main.c:43:5: error: 'GPIOD' undeclared (first use in this function); did you mean 'GPIODEN'?
+   43 |     GPIOD->BSRR = IN_1;       // Set IN1
+      |     ^~~~~
+      |     GPIODEN
+../Src/main.c: In function 'Run_Backward':
+../Src/main.c:48:5: error: 'GPIOD' undeclared (first use in this function); did you mean 'GPIODEN'?
+   48 |     GPIOD->BSRR = IN_2;       // Set IN2
+      |     ^~~~~
+      |     GPIODEN
+../Src/main.c: At top level:
+../Src/main.c:52:16: error: unknown type name 'uint8_t'
+   52 | void Set_Speed(uint8_t duty_cycle) {
+      |                ^~~~~~~
+../Src/main.c:52:16: note: 'uint8_t' is defined in header '<stdint.h>'; did you forget to '#include <stdint.h>'?
+../Src/main.c:64:21: error: unknown type name 'uint32_t'
+   64 | void Delay(volatile uint32_t time) {
+      |                     ^~~~~~~~
+make: *** [Src/subdir.mk:25: Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+05:25:32 **** Incremental Build of configuration Debug for project Run_Motor_Var_Speed ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc -o "Run_Motor_Var_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Var_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Var_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Var_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Var_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Var_Speed.elf  > "Run_Motor_Var_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+   1044	      0	   1568	   2612	    a34	Run_Motor_Var_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Var_Speed.list
+ 
+05:26:45 **** Incremental Build of configuration Debug for project Run_Motor_Var_Speed ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Run_Motor_Var_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Var_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Var_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Var_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Var_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Var_Speed.elf  > "Run_Motor_Var_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+   1084	      0	   1568	   2652	    a5c	Run_Motor_Var_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Var_Speed.list
+ 
+05:41:54 **** Incremental Build of configuration Debug for project Run_Motor_Var_Speed ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Run_Motor_Var_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Var_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Var_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Var_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Var_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Var_Speed.elf  > "Run_Motor_Var_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+   1192	      0	   1568	   2760	    ac8	Run_Motor_Var_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Var_Speed.list
+ 
+05:42:42 **** Incremental Build of configuration Debug for project Run_Motor_Var_Speed ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Run_Motor_Var_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Var_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Var_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Var_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Var_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Var_Speed.elf  > "Run_Motor_Var_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+   1192	      0	   1568	   2760	    ac8	Run_Motor_Var_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Var_Speed.list
+ 
+05:43:40 **** Incremental Build of configuration Debug for project Run_Motor_Var_Speed ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F411VETx -DSTM32 -DSTM32F4 -DSTM32F411E_DISCO -DSTM32F411xE -c -I../Inc -I"C:/Users/prave/Documents/STM 32 Header Files/Include" -I"C:/Users/prave/Documents/STM 32 Header Files/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Run_Motor_Var_Speed.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\prave\Documents\GitHub\Embedded-C-\DISCOVERY BOARD\STM32F411xCxE\Code\Run_Motor_Var_Speed\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Run_Motor_Var_Speed.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Run_Motor_Var_Speed.elf
+ 
+arm-none-eabi-size  Run_Motor_Var_Speed.elf 
+arm-none-eabi-objdump -h -S Run_Motor_Var_Speed.elf  > "Run_Motor_Var_Speed.list"
+   text	   data	    bss	    dec	    hex	filename
+   1192	      0	   1568	   2760	    ac8	Run_Motor_Var_Speed.elf
+Finished building: default.size.stdout
+ 
+Finished building: Run_Motor_Var_Speed.list
+ 

@@ -1,0 +1,73 @@
+#include "stm32f4xx.h"
+
+#define GPIODEN     (1U<<3)
+#define MOTOR_EN    (1U<<12) // PD12 (TIM4_CH1)
+#define IN_1        (1U<<13) // PD13
+#define IN_2        (1U<<15) // PD15
+
+void PWM_Init(void);
+void GPIO_Init(void);
+void Run_Forward(void);
+void Run_Backward(void);
+void Delay(volatile int time);
+
+int main(void) {
+    GPIO_Init();
+    PWM_Init();
+
+    while (1) {
+        Run_Forward();
+        for (int duty = 0; duty <= 100; duty += 10) {
+            TIM4->CCR1 = duty;  // Change PWM duty cycle
+            Delay(500000);
+        }
+
+        Run_Backward();
+        for (int duty = 100; duty >= 0; duty -= 10) {
+            TIM4->CCR1 = duty;
+            Delay(500000);
+        }
+    }
+}
+
+void GPIO_Init(void) {
+    RCC->AHB1ENR |= GPIODEN;
+
+    // PD12 (AF), PD13, PD15 as output
+    GPIOD->MODER &= ~(0xF<<24);       // Clear MODER12/13/15
+    GPIOD->MODER |= (0x2<<24);        // PD12 = AF
+    GPIOD->MODER |= (1<<26);          // PD13 = Output
+    GPIOD->MODER |= (1<<30);          // PD15 = Output
+
+    // Set AF2 for TIM4_CH1 on PD12
+    GPIOD->AFR[1] &= ~(0xF<<16);      // Clear AFR[12]
+    GPIOD->AFR[1] |= (0x2<<16);       // AF2 for TIM4_CH1
+}
+
+void PWM_Init(void) {
+    RCC->APB1ENR |= (1<<2);       // Enable TIM4 clock
+
+    TIM4->PSC = 1600 - 1;         // Prescaler
+    TIM4->ARR = 100 - 1;          // Auto-reload (period for 100% duty)
+    TIM4->CCR1 = 0;               // Initial duty cycle = 0%
+
+    TIM4->CCMR1 |= (6<<4);        // PWM mode 1 on CH1
+    TIM4->CCMR1 |= (1<<3);        // Enable preload
+    TIM4->CCER |= 1;              // Enable CH1 output
+    TIM4->CR1 |= (1<<7);          // Auto-reload preload
+    TIM4->CR1 |= 1;               // Enable TIM4
+}
+
+void Run_Forward(void) {
+    GPIOD->BSRR = IN_1;
+    GPIOD->BSRR = (1<<31); // Reset IN_2
+}
+
+void Run_Backward(void) {
+    GPIOD->BSRR = IN_2;
+    GPIOD->BSRR = (1<<29); // Reset IN_1
+}
+
+void Delay(volatile int time) {
+    while(time--);
+}

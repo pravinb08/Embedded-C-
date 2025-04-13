@@ -1,0 +1,10 @@
+05:21:21 **** Incremental Build of configuration Debug for project Run_Motor_Full_Speed ****
+make -j12 all 
+arm-none-eabi-size  Run_Motor_Full_Speed.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1044	      0	   1568	   2612	    a34	Run_Motor_Full_Speed.elf
+Finished building: default.size.stdout
+ 
+
+05:21:21 Build Finished. 0 errors, 0 warnings. (took 153ms)
+
