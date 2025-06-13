@@ -9,3 +9,4 @@ org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MOTOR\ Debug/activeLaunchMode=r
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MOTOR\ Debug/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Run_Motor_Speed\ Debug/activeLaunchMode=run
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Run_Motor_Var_Speed/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Run_Motor_Var_Speed/activeLaunchTarget=null\:---
