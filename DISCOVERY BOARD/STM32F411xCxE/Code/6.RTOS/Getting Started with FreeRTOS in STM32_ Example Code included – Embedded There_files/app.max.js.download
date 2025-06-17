@@ -1,0 +1,425 @@
+
+/**************************************
+ * File app.max.js
+ * NOTE: this is a temporary file, used to compile frontend js files before minifying into app.min.js
+ * This file is not enqueued or used in the front end but it should include the most up-to-date version of the following files:
+ * - navigation.js
+ * - skip-link-focus-fix.js
+ * - custom-theme.js
+ *
+ * 
+ * For crafting a new release, use the following steps:
+ * 1. Update and test individual js files while APP_ENV == 'dev' (individual files are enqueued in dev mode)
+ * 2. Copy-paste updated files into this file, replacing their content below. Note date when content was replaced
+ * 3. Minify the file using something like https://codebeautify.org/minify-js and save it as app.min.js
+ * 4. Overwrite app.min.js and commit
+ ************************************/
+
+
+/**
+ * File navigation.js. 
+ * copied here from original 4-04-2023
+ */
+
+( function() {
+
+  // console.log("app MAX js running");
+
+  var container, button, menu, links, i, len, searchIcon, siteNav, toggleSubMenu;
+
+  container = document.getElementById( 'masthead' );
+  if ( ! container ) {
+    return;
+  }
+
+  button = container.getElementsByTagName( 'button' )[0];
+  if ( 'undefined' === typeof button ) {
+    return;
+  }
+
+  siteNav = document.getElementById( 'site-navigation' );
+
+  menu = container.getElementsByTagName( 'ul' )[0];
+
+  searchIcon = document.getElementById( 'search-icon' );
+
+  // Hide menu toggle button if menu is empty and return early.
+  if ( 'undefined' === typeof menu ) {
+    button.style.display = 'none';
+    return;
+  }
+
+  menu.setAttribute( 'aria-expanded', 'false' );
+  if ( -1 === menu.className.indexOf( 'nav-menu' ) ) {
+    menu.className += ' nav-menu';
+  }
+
+  // Open/close primary nav on hamburger click and focus
+  // console.log(window.outerWidth);
+
+  button.addEventListener( 'click', menuIconClicked, true );
+  // button.addEventListener( 'focus', menuIconClicked, true );
+
+  function primaryNavCheck() {
+    // console.log("primaryNavCheck");
+    // console.log("window.outerWidth = " + window.outerWidth);
+    if( window.outerWidth >= 1200 ) {
+      // menu.addEventListener( 'focus', menuIconClicked, true );
+
+      // console.log("toggled class exists?: " + container.className.indexOf( 'toggled' ));
+      if( (container.className).indexOf('desktop-toggle') > -1 ) {
+        if( container.className.indexOf( 'toggled' ) == -1 ) {
+          container.className += ' toggled';
+          button.setAttribute( 'aria-expanded', 'true' );
+          menu.setAttribute( 'aria-expanded', 'true' );
+          // setTimeout(function() {
+          siteNav.style.overflow = "visible";
+        }
+      }
+      else if ( container.className.indexOf( 'toggled' ) > -1 ) {
+        //closePrimaryMenu();
+        Array.prototype.forEach.call(container.querySelectorAll(".submenu-active"), function(element) {
+          element.classList.remove('submenu-active');
+        });
+      }
+    }
+    // else if(resize == true) {
+    //   closePrimaryMenu();
+    // }
+    else {
+      closePrimaryMenu();
+    }
+    // else if(init == false) {
+    //   if( window.outerWidth >= 1200 ) {
+    //
+    //   }
+    // }
+  }
+
+  primaryNavCheck();
+
+  window.onresize = function() {
+    setTimeout( function() {
+      primaryNavCheck(true);
+    }, 200);
+  };
+
+  function closePrimaryMenu() {
+
+    container.className = container.className.replace( ' toggled', '' );
+    button.setAttribute( 'aria-expanded', 'false' );
+    menu.setAttribute( 'aria-expanded', 'false' );
+    // setTimeout(function() {
+    siteNav.style.overflow = "hidden";
+  }
+
+  // menu.addEventListener( 'focus', menuIconClicked, true );
+
+  function menuIconClicked() {
+
+    if ( container.className.indexOf( 'toggled' ) > -1 ) {
+      // console.log("menuIconClicked");
+      // if( (container.className).indexOf('desktop-toggle') == -1 && window.outerWidth > 1200 ) {
+        closePrimaryMenu();
+      // }
+      // if ( document.querySelectorAll( menu + " :focus").length === 0 ) {
+      //if( ! menu.hasFocus() ) {
+        // }, 500);
+        // }
+    }
+    else {
+      container.className += ' toggled';
+      button.setAttribute( 'aria-expanded', 'true' );
+      menu.setAttribute( 'aria-expanded', 'true' );
+      // setTimeout(function() {
+      siteNav.style.overflow = "visible";
+      // }, 500);
+
+    }
+  }
+
+  /**
+   * toggle submenus on mobile in primary menu
+   */
+  toggleSubMenu = document.getElementsByClassName( 'toggle-submenu' );
+  // console.log(toggleSubMenu);
+  for(var j = 0; j < toggleSubMenu.length; j++) {
+     // (function(index) {
+       toggleSubMenu[j].addEventListener("click", function() {
+         // console.log("Clicked index: " + index);
+
+         if ( -1 === this.parentNode.className.indexOf( 'submenu-active' ) ) {
+           // this.nextSibling.setAttribute('class', 'submenu-active');
+           this.parentNode.className += ' submenu-active';
+         }
+         else {
+           this.parentNode.classList.remove('submenu-active');
+         }
+
+      });
+    // })(j);
+  }
+
+
+  // Get all the link elements within the menu.
+  links    = menu.getElementsByTagName( 'a' );
+
+  // Each time a menu link is focused or blurred, toggle focus.
+  for ( i = 0, len = links.length; i < len; i++ ) {
+    links[i].addEventListener( 'focus', toggleFocus, true );
+    links[i].addEventListener( 'blur', toggleFocus, true );
+  }
+
+  /**
+   * Sets or removes .focus class on an element.
+   */
+  function toggleFocus() {
+    var self = this;
+
+    // Move up through the ancestors of the current link until we hit .nav-menu.
+    while ( -1 === self.className.indexOf( 'nav-menu' ) ) {
+
+      // On li elements toggle the class .focus.
+      if ( 'li' === self.tagName.toLowerCase() ) {
+        if ( -1 !== self.className.indexOf( 'focus' ) ) {
+          self.className = self.className.replace( ' focus', '' );
+        } else {
+          self.className += ' focus';
+        }
+      }
+
+      self = self.parentElement;
+    }
+  }
+
+  /**
+   * Open/close search form in header
+   */
+
+  searchIcon.addEventListener( 'click', searchIconClicked, true );
+  // searchIcon.addEventListener( 'focus', searchIconClicked, true );
+
+  function searchIconClicked() {
+
+    if ( -1 !== searchIcon.parentElement.className.indexOf( 'search-active' ) ) {
+      searchIcon.parentElement.className = searchIcon.parentElement.className.replace( ' search-active', '' );
+    }
+    else {
+      searchIcon.parentElement.className += ' search-active';
+      setTimeout( function() {
+        document.getElementById( 'search-field' ).focus();
+      }, 500 );
+    }
+
+  }
+
+  /**
+   * Toggles `focus` class to allow submenu access on tablets.
+   */
+  ( function( container ) {
+    var touchStartFn, i,
+      parentLink = container.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
+        // Test via a getter in the options object to see if the passive property is accessed
+        //https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+        var supportsPassive = false;
+        try {
+            var opts = Object.defineProperty({}, 'passive', {
+                get: function() {
+                    supportsPassive = true;
+                }
+            });
+            window.addEventListener("testPassive", null, opts);
+            window.removeEventListener("testPassive", null, opts);
+        } catch (e) {}
+
+    if ( 'ontouchstart' in window ) {
+      touchStartFn = function( e ) {
+        var menuItem = this.parentNode, i;
+
+        if ( ! menuItem.classList.contains( 'focus' ) ) {
+          e.preventDefault();
+          for ( i = 0; i < menuItem.parentNode.children.length; ++i ) {
+            if ( menuItem === menuItem.parentNode.children[i] ) {
+              continue;
+            }
+            menuItem.parentNode.children[i].classList.remove( 'focus' );
+          }
+          menuItem.classList.add( 'focus' );
+        } else {
+          menuItem.classList.remove( 'focus' );
+        }
+      };
+
+      for ( i = 0; i < parentLink.length; ++i ) {
+        //parentLink[i].addEventListener( 'touchstart', touchStartFn, false );
+                parentLink[i].addEventListener( 'touchstart', touchStartFn, supportsPassive ? { passive: true } : false );
+      }
+    }
+  }( container ) );
+} )();
+
+//end navigation.js
+
+/**
+ * File skip-link-focus-fix.js.
+ * copied here from original 4-04-2023
+ */
+( function() {
+  var isIe = /(trident|msie)/i.test( navigator.userAgent );
+
+  if ( isIe && document.getElementById && window.addEventListener ) {
+    window.addEventListener( 'hashchange', function() {
+      var id = location.hash.substring( 1 ),
+        element;
+
+      if ( ! ( /^[A-z0-9_-]+$/.test( id ) ) ) {
+        return;
+      }
+
+      element = document.getElementById( id );
+
+      if ( element ) {
+        if ( ! ( /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) ) {
+          element.tabIndex = -1;
+        }
+
+        element.focus();
+      }
+    }, false );
+  }
+} )();
+//end skip-link-focus-fix.js
+
+/**
+ * File custom-theme.js.
+ * copied here from original 4-04-2023
+ */
+if('ontouchstart' in document.documentElement){
+  document.addEventListener('touchstart',ontouchstart,{passive:true});
+}
+
+window.onscroll = function() {
+  // print "false" if direction is down and "true" if up
+  // console.log(localStorage.getItem( 'bounce_displayed'));
+  var antibounce = document.getElementById( 'antibounce' );
+  if( (this.oldScroll > this.scrollY ) && (! localStorage.getItem( 'bounce_displayed') ) && ( typeof( antibounce ) != 'undefined' && antibounce != null ) ) {
+    antibounce.classList.add( 'bounce-active' );
+    // Store
+    localStorage.setItem( 'bounce_displayed', true );
+  }
+  this.oldScroll = this.scrollY;
+};
+
+// Open the Modal
+function openModal() {
+  document.getElementById('modal').style.display = "flex";
+}
+
+// Close the Modal
+function closeModal() {
+  document.getElementById('modal').style.display = "none";
+}
+
+if( document.getElementsByClassName( "slide" ).length > 0 ) {
+  var slideIndex = 1;
+  showSlides(slideIndex);
+
+  // Next/previous controls
+}
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("slide");
+  // var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndex-1].style.display = "block";
+
+  captionText.innerHTML = slides[slideIndex-1].dataset.caption;
+}
+
+//Checks for Webp image support
+function WebpIsSupported(callback){
+  // If the browser doesn't has the method createImageBitmap, you can't display webp format
+  if(!window.createImageBitmap){
+    callback(false);
+    return;
+  }
+
+  // Base64 representation of a white point image
+  var webpdata = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoCAAEAAQAcJaQAA3AA/v3AgAA=';
+
+  // Retrieve the Image in Blob Format
+  fetch(webpdata).then(function(response){
+    return response.blob();
+  }).then(function(blob){
+    // If the createImageBitmap method succeeds, return true, otherwise false
+    createImageBitmap(blob).then(function(){
+        // console.log("WEBP supported!");
+        callback(true);
+    }, function(){
+        // console.log("WEBP not supported!");
+        callback(false);
+    });
+  });
+}
+
+// Search for [data-jpg-url] attributes and dynamically add in the
+// [data-webp-url] if the browser can render or just display the jpg
+function replaceImages(){
+    WebpIsSupported( function(isSupported) {
+      var bg_images = document.getElementsByClassName( 'webp-check' );
+      for (var i = 0; i < bg_images.length; i++) {
+          var img_url = '';
+          var display = window.getComputedStyle(bg_images[i]).display;
+         //console.log( 'isSupported = ' + isSupported);
+          if(isSupported) {
+              if( bg_images[i].getAttribute( 'data-webp-url' ) != '' && bg_images[i].getAttribute( 'data-webp-url' ) != undefined ) {
+                  if(display != "none"){
+                      img_url = bg_images[i].getAttribute( 'data-webp-url' );
+                  }
+              }
+              else if( bg_images[i].getAttribute( 'mobile-data-webp-url' ) != '' && bg_images[i].getAttribute( 'mobile-data-webp-url' ) != undefined ) {
+                  if(display != "none"){
+                      img_url = bg_images[i].getAttribute( 'data-webp-url' );
+                  }
+              }
+              else {
+                  if(display != "none"){
+                      img_url = bg_images[i].getAttribute( 'data-jpg-url' );
+                  }
+              }
+          }
+          else{
+              if(display != "none"){
+                  img_url = bg_images[i].getAttribute( 'data-jpg-url' );
+              }
+          }
+          cssVal = 'background-image: url("' + img_url + '")';
+          bg_images[i].setAttribute('style', cssVal);
+      }
+    });
+}
+replaceImages();
+
+window.addEventListener('resize', function() {
+    replaceImages();
+}, true);
+//end custom-theme.js

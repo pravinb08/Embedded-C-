@@ -1,0 +1,95 @@
+@media (min-width: 1200px) {
+    .main-navigation .nav-menu > li .submenu > li:hover {
+        background: #363940;
+    }
+    .main-navigation .nav-menu > li .submenu > li:hover > a {
+        color: #fff;
+    }
+    .main-navigation .submenu {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .main-navigation .toggle-submenu {
+        display: none !important;
+    }
+    .main-navigation ul {
+        text-align: center;
+    }
+    .main-navigation ul ul.submenu {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .main-navigation ul ul {
+        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+        float: left;
+        position: absolute;
+        top: 100%;
+        left: -999em;
+        z-index: 99999;
+        width: auto;
+        display: block;
+    }
+    .main-navigation ul ul li:hover > ul {
+        width: auto;
+        top: 100%;
+        left: 40px;
+    }
+    .main-navigation ul ul a {
+        white-space: nowrap;
+    }
+    .main-navigation ul li:hover > ul {
+        left: 0;
+    }
+    .main-navigation li {
+        display: inline-block;
+    }
+    .main-navigation .menu-item-has-children > .submenu {
+        display: block;
+    }
+    .main-navigation .menu-item-has-children > .submenu .menu-item-has-children:hover > a:after {
+        border-top: 8px solid #fff;
+    }
+    .main-navigation .menu-item-has-children li {
+        padding-left: 0;
+    }
+    .main-navigation .menu-item-has-children > a:after {
+        content: "";
+        position: absolute;
+        top: 20px;
+        right: 12px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 8px solid #363940;
+    }
+    .main-navigation .menu-item-has-children > a:hover:after,
+    .main-navigation .menu-item-has-children > a:focus:after {
+        border-top-color: #818592;
+    }
+    .main-navigation .nav-menu {
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+    .hamburger-wrapper.desktop {
+        display: none
+    }
+    #antibounce {
+        padding-left: 40px;
+        padding-right: 40px
+    }
+    .antibounce-card {
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap
+    }
+    .antibounce-card .copy-wrapper {
+        margin-right: 60px;
+        margin-bottom: 0;
+        width: calc(100% - 363px)
+    }
+    .antibounce-card button {
+        position: static
+    }
+}

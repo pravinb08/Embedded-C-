@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>var __ezHttpConsent={setByCat:function(src,tagType,attributes,category,force,customSetScriptFn=null){var setScript=function(){if(force||window.ezTcfConsent[category]){if(typeof customSetScriptFn==='function'){customSetScriptFn();}else{var scriptElement=document.createElement(tagType);scriptElement.src=src;attributes.forEach(function(attr){for(var key in attr){if(attr.hasOwnProperty(key)){scriptElement.setAttribute(key,attr[key]);}}});var firstScript=document.getElementsByTagName(tagType)[0];firstScript.parentNode.insertBefore(scriptElement,firstScript);}}};if(force||(window.ezTcfConsent&&window.ezTcfConsent.loaded)){setScript();}else if(typeof getEzConsentData==="function"){getEzConsentData().then(function(ezTcfConsent){if(ezTcfConsent&&ezTcfConsent.loaded){setScript();}else{console.error("cannot get ez consent data");force=true;setScript();}});}else{force=true;setScript();console.error("getEzConsentData is not a function");}},};</script>
+<script>var ezTcfConsent=window.ezTcfConsent?window.ezTcfConsent:{loaded:false,store_info:false,develop_and_improve_services:false,measure_ad_performance:false,measure_content_performance:false,select_basic_ads:false,create_ad_profile:false,select_personalized_ads:false,create_content_profile:false,select_personalized_content:false,understand_audiences:false,use_limited_data_to_select_content:false,};function getEzConsentData(){return new Promise(function(resolve){document.addEventListener("ezConsentEvent",function(event){var ezTcfConsent=event.detail.ezTcfConsent;resolve(ezTcfConsent);});});}</script>
+<script>if(typeof _setEzCookies!=='function'){function _setEzCookies(ezConsentData){var cookies=window.ezCookieQueue;for(var i=0;i<cookies.length;i++){var cookie=cookies[i];if(ezConsentData&&ezConsentData.loaded&&ezConsentData[cookie.tcfCategory]){document.cookie=cookie.name+"="+cookie.value;}}}}
+window.ezCookieQueue=window.ezCookieQueue||[];if(typeof addEzCookies!=='function'){function addEzCookies(arr){window.ezCookieQueue=[...window.ezCookieQueue,...arr];}}
+addEzCookies([{name:"ezopvc_446325",value:"1; Path=/; Domain=embeddedthere.com; Expires=Tue, 17 Jun 2025 06:55:59 UTC",tcfCategory:"understand_audiences",isEzoic:"true",},{name:"ezoab_446325",value:"mod44-c; Path=/; Domain=embeddedthere.com; Max-Age=7200",tcfCategory:"store_info",isEzoic:"true",},{name:"active_template::446325",value:"pub_site.1750141559; Path=/; Domain=embeddedthere.com; Expires=Thu, 19 Jun 2025 06:25:59 UTC",tcfCategory:"store_info",isEzoic:"true",},{name:"ezoadgid_446325",value:"-1; Path=/; Domain=embeddedthere.com; Max-Age=1800",tcfCategory:"understand_audiences",isEzoic:"true",},{name:"ezosuibasgeneris-1",value:"cc7eac21-c4af-48a3-53ab-6a73a49d540f; Path=/; Domain=embeddedthere.com; Expires=Wed, 17 Jun 2026 06:25:59 UTC; Secure; SameSite=None",tcfCategory:"understand_audiences",isEzoic:"true",}]);if(window.ezTcfConsent&&window.ezTcfConsent.loaded){_setEzCookies(window.ezTcfConsent);}else if(typeof getEzConsentData==="function"){getEzConsentData().then(function(ezTcfConsent){if(ezTcfConsent&&ezTcfConsent.loaded){_setEzCookies(window.ezTcfConsent);}else{console.error("cannot get ez consent data");_setEzCookies(window.ezTcfConsent);}});}else{console.error("getEzConsentData is not a function");_setEzCookies(window.ezTcfConsent);}</script><script type="text/javascript" data-ezscrex="false" data-cfasync="false">window._ezaq = Object.assign({"edge_cache_status":34,"edge_response_time":5,"url":"https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/"}, typeof window._ezaq !== "undefined" ? window._ezaq : {});</script><script type="text/javascript" data-ezscrex="false" data-cfasync="false">window._ezaq = Object.assign({"ezcache_level":2}, typeof window._ezaq !== "undefined" ? window._ezaq : {});</script><script type="text/javascript" data-ezscrex="false" data-cfasync="false">window._ezaq = Object.assign({"ab_test_id":"mod44-c"}, typeof window._ezaq !== "undefined" ? window._ezaq : {});window.__ez=window.__ez||{};window.__ez.tf={};</script><script data-ezscrex="false" data-cfasync="false" data-pagespeed-no-defer="">var __ez=__ez||{};__ez.stms=Date.now();__ez.evt={};__ez.script={};__ez.ck=__ez.ck||{};__ez.template={};__ez.template.isOrig=false;__ez.queue=__ez.queue||function(){var e=0,i=0,t=[],n=!1,o=[],r=[],s=!0,a=function(e,i,n,o,r,s,a){var l=arguments.length>7&&void 0!==arguments[7]?arguments[7]:window,d=this;this.name=e,this.funcName=i,this.parameters=null===n?null:w(n)?n:[n],this.isBlock=o,this.blockedBy=r,this.deleteWhenComplete=s,this.isError=!1,this.isComplete=!1,this.isInitialized=!1,this.proceedIfError=a,this.fWindow=l,this.isTimeDelay=!1,this.process=function(){f("... func = "+e),d.isInitialized=!0,d.isComplete=!0,f("... func.apply: "+e);var i=d.funcName.split("."),n=null,o=this.fWindow||window;i.length>3||(n=3===i.length?o[i[0]][i[1]][i[2]]:2===i.length?o[i[0]][i[1]]:o[d.funcName]),null!=n&&n.apply(null,this.parameters),!0===d.deleteWhenComplete&&delete t[e],!0===d.isBlock&&(f("----- F'D: "+d.name),m())}},l=function(e,i,t,n,o,r,s){var a=arguments.length>7&&void 0!==arguments[7]?arguments[7]:window,l=this;this.name=e,this.path=i,this.async=o,this.defer=r,this.isBlock=t,this.blockedBy=n,this.isInitialized=!1,this.isError=!1,this.isComplete=!1,this.proceedIfError=s,this.fWindow=a,this.isTimeDelay=!1,this.isPath=function(e){return"/"===e[0]&&"/"!==e[1]},this.getSrc=function(e){return void 0!==window.__ezScriptHost&&this.isPath(e)&&"banger.js"!==this.name?window.__ezScriptHost+e:e},this.process=function(){l.isInitialized=!0,f("... file = "+e);var i=this.fWindow?this.fWindow.document:document,t=i.createElement("script");t.src=this.getSrc(this.path),!0===o?t.async=!0:!0===r&&(t.defer=!0),t.onerror=function(){var e={url:window.location.href,name:l.name,path:l.path,user_agent:window.navigator.userAgent};"undefined"!=typeof _ezaq&&(e.pageview_id=_ezaq.page_view_id);var i=encodeURIComponent(JSON.stringify(e)),t=new XMLHttpRequest;t.open("GET","//g.ezoic.net/ezqlog?d="+i,!0),t.send(),f("----- ERR'D: "+l.name),l.isError=!0,!0===l.isBlock&&m()},t.onreadystatechange=t.onload=function(){var e=t.readyState;f("----- F'D: "+l.name),e&&!/loaded|complete/.test(e)||(l.isComplete=!0,!0===l.isBlock&&m())},i.getElementsByTagName("head")[0].appendChild(t)}},d=function(e,i){this.name=e,this.path="",this.async=!1,this.defer=!1,this.isBlock=!1,this.blockedBy=[],this.isInitialized=!0,this.isError=!1,this.isComplete=i,this.proceedIfError=!1,this.isTimeDelay=!1,this.process=function(){}};function c(e,i,n,s,a,d,c,u,f){var m=new l(e,i,n,s,a,d,c,f);!0===u?o[e]=m:r[e]=m,t[e]=m,h(m)}function h(e){!0!==u(e)&&0!=s&&e.process()}function u(e){if(!0===e.isTimeDelay&&!1===n)return f(e.name+" blocked = TIME DELAY!"),!0;if(w(e.blockedBy))for(var i=0;i<e.blockedBy.length;i++){var o=e.blockedBy[i];if(!1===t.hasOwnProperty(o))return f(e.name+" blocked = "+o),!0;if(!0===e.proceedIfError&&!0===t[o].isError)return!1;if(!1===t[o].isComplete)return f(e.name+" blocked = "+o),!0}return!1}function f(e){var i=window.location.href,t=new RegExp("[?&]ezq=([^&#]*)","i").exec(i);"1"===(t?t[1]:null)&&console.debug(e)}function m(){++e>200||(f("let's go"),p(o),p(r))}function p(e){for(var i in e)if(!1!==e.hasOwnProperty(i)){var t=e[i];!0===t.isComplete||u(t)||!0===t.isInitialized||!0===t.isError?!0===t.isError?f(t.name+": error"):!0===t.isComplete?f(t.name+": complete already"):!0===t.isInitialized&&f(t.name+": initialized already"):t.process()}}function w(e){return"[object Array]"==Object.prototype.toString.call(e)}return window.addEventListener("load",(function(){setTimeout((function(){n=!0,f("TDELAY -----"),m()}),5e3)}),!1),{addFile:c,addFileOnce:function(e,i,n,o,r,s,a,l,d){t[e]||c(e,i,n,o,r,s,a,l,d)},addDelayFile:function(e,i){var n=new l(e,i,!1,[],!1,!1,!0);n.isTimeDelay=!0,f(e+" ...  FILE! TDELAY"),r[e]=n,t[e]=n,h(n)},addFunc:function(e,n,s,l,d,c,u,f,m,p){!0===c&&(e=e+"_"+i++);var w=new a(e,n,s,l,d,u,f,p);!0===m?o[e]=w:r[e]=w,t[e]=w,h(w)},addDelayFunc:function(e,i,n){var o=new a(e,i,n,!1,[],!0,!0);o.isTimeDelay=!0,f(e+" ...  FUNCTION! TDELAY"),r[e]=o,t[e]=o,h(o)},items:t,processAll:m,setallowLoad:function(e){s=e},markLoaded:function(e){if(e&&0!==e.length){if(e in t){var i=t[e];!0===i.isComplete?f(i.name+" "+e+": error loaded duplicate"):(i.isComplete=!0,i.isInitialized=!0)}else t[e]=new d(e,!0);f("markLoaded dummyfile: "+t[e].name)}},logWhatsBlocked:function(){for(var e in t)!1!==t.hasOwnProperty(e)&&u(t[e])}}}();__ez.evt.add=function(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n()},__ez.evt.remove=function(e,t,n){e.removeEventListener?e.removeEventListener(t,n,!1):e.detachEvent?e.detachEvent("on"+t,n):delete e["on"+t]};__ez.script.add=function(e){var t=document.createElement("script");t.src=e,t.async=!0,t.type="text/javascript",document.getElementsByTagName("head")[0].appendChild(t)};__ez.dot={};__ez.queue.addFile('/detroitchicago/boise.js', '/detroitchicago/boise.js?gcb=195-3&cb=5', true, [], true, false, true, false);__ez.queue.addFile('/parsonsmaize/abilene.js', '/parsonsmaize/abilene.js?gcb=195-3&cb=dc112bb7ea', true, [], true, false, true, false);__ez.queue.addFile('/parsonsmaize/mulvane.js', '/parsonsmaize/mulvane.js?gcb=195-3&cb=e75e48eec0', true, ['/parsonsmaize/abilene.js'], true, false, true, false);__ez.queue.addFile('/detroitchicago/birmingham.js', '/detroitchicago/birmingham.js?gcb=195-3&cb=539c47377c', true, ['/parsonsmaize/abilene.js'], true, false, true, false);</script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/boise.js.download" async=""></script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/abilene.js.download" async=""></script>
+<script data-ezscrex="false" data-cfasync="false">__ez.ssaf=[17,16];__ez.sswp=4;__ez.ssv=881552;__ez.sshsdef=false;</script>
+<script data-ezscrex="false" data-cfasync="false">__ez.queue.addFile('/tardisrocinante/screx.js', '/tardisrocinante/screx.js?gcb=3&cb=5', false, ['/detroitchicago/tulsa.js'], true, false, true, false);</script>
+<script data-ezscrex="false" data-cfasync="false">(function(){if("function"===typeof window.CustomEvent)return!1;window.CustomEvent=function(c,a){a=a||{bubbles:!1,cancelable:!1,detail:null};var b=document.createEvent("CustomEvent");b.initCustomEvent(c,a.bubbles,a.cancelable,a.detail);return b}})();</script><script data-ezscrex="false" data-cfasync="false">__ez.queue.addFile('/detroitchicago/tulsa.js', '/detroitchicago/tulsa.js?gcb=195-3&cb=9', false, [], true, false, true, false);</script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/tulsa.js.download" async=""></script>
+<script data-ezscrex="false" type="text/javascript" data-cfasync="false">window._ezaq = Object.assign({"ad_cache_level":1,"adpicker_placement_cnt":0,"ai_placeholder_cache_level":1,"ai_placeholder_placement_cnt":-1,"article_category":"STM32","author":"Mahamudul Hasan","domain":"embeddedthere.com","domain_id":446325,"ezcache_level":2,"ezcache_skip_code":0,"has_bad_image":0,"has_bad_words":0,"is_sitespeed":1,"lt_cache_level":0,"publish_date":"2023-05-21","response_size":115959,"response_size_orig":105147,"response_time_orig":39,"template_id":134,"url":"https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/","word_count":3144,"worst_bad_word_level":0}, typeof window._ezaq !== "undefined" ? window._ezaq : {});__ez.queue.markLoaded('ezaqBaseReady');</script>
+<link rel="preload" as="script" href="https://securepubads.g.doubleclick.net/tag/js/gpt.js">
+<link rel="preload" as="script" href="https://go.ezodn.com/hb/dall.js?cb=195-3-122">
+<script type="text/ez-screx">(function(){function storageAvailable(type){var storage;try{storage=window[type];var x='__storage_test__';storage.setItem(x,x);storage.removeItem(x);return true;}
+catch(e){return e instanceof DOMException&&(e.code===22||e.code===1014||e.name==='QuotaExceededError'||e.name==='NS_ERROR_DOM_QUOTA_REACHED')&&(storage&&storage.length!==0);}}
+function remove_ama_config(){if(storageAvailable('localStorage')){localStorage.removeItem("google_ama_config");}}
+remove_ama_config()})()</script>
+<script type="text/javascript">var ezoicTestActive = true</script>
+<script type="text/javascript" data-ezscrex="false" data-cfasync="false">
+window.ezAnalyticsStatic = true;
+
+function analyticsAddScript(script) {
+	var ezDynamic = document.createElement('script');
+	ezDynamic.type = 'text/javascript';
+	ezDynamic.innerHTML = script;
+	document.head.appendChild(ezDynamic);
+}
+function getCookiesWithPrefix() {
+    var allCookies = document.cookie.split(';');
+    var cookiesWithPrefix = {};
+
+    for (var i = 0; i < allCookies.length; i++) {
+        var cookie = allCookies[i].trim();
+
+        for (var j = 0; j < arguments.length; j++) {
+            var prefix = arguments[j];
+            if (cookie.indexOf(prefix) === 0) {
+                var cookieParts = cookie.split('=');
+                var cookieName = cookieParts[0];
+                var cookieValue = cookieParts.slice(1).join('=');
+                cookiesWithPrefix[cookieName] = decodeURIComponent(cookieValue);
+                break; // Once matched, no need to check other prefixes
+            }
+        }
+    }
+
+    return cookiesWithPrefix;
+}
+function productAnalytics() {
+	var d = {"pr":[6,1],"aop":{"2":0,"4":134,"7":0},"omd5":"211300c51e73cfc0aa62bbd1d41db058"};
+	d.u = _ezaq.url;
+	d.p = _ezaq.page_view_id;
+	d.v = _ezaq.visit_uuid;
+	d.ab = _ezaq.ab_test_id;
+	d.e = JSON.stringify(_ezaq);
+	d.ref = document.referrer;
+	d.c = getCookiesWithPrefix('active_template', 'ez', 'lp_');
+	if(typeof ez_utmParams !== 'undefined') {
+		d.utm = ez_utmParams;
+	}
+
+	var dataText = JSON.stringify(d);
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST','/ezais/analytics?cb=1', true);
+	xhr.onload = function () {
+		if (xhr.status!=200) {
+            return;
+		}
+
+        if(document.readyState !== 'loading') {
+            analyticsAddScript(xhr.response);
+            return;
+        }
+
+        var eventFunc = function() {
+            if(document.readyState === 'loading') {
+                return;
+            }
+            document.removeEventListener('readystatechange', eventFunc, false);
+            analyticsAddScript(xhr.response);
+        };
+
+        document.addEventListener('readystatechange', eventFunc, false);
+	};
+	xhr.setRequestHeader('Content-Type','text/plain');
+	xhr.send(dataText);
+}
+__ez.queue.addFunc("productAnalytics", "productAnalytics", null, true, ['ezaqBaseReady'], false, false, false, true);
+</script><script type="text/javascript" data-ezscrex="false" data-cfasync="false" async="">
+function productEzoicAds() {
+if(window.ezDisableAds === true) {
+	return;
+}
+window.google_reactive_ads_global_state = {
+                adCount: {},
+                floatingAdsStacking: { maxZIndexListeners: [], maxZIndexRestrictions: {}, nextRestrictionId: 0 },
+                messageValidationEnabled: false,
+                reactiveTypeDisabledByPublisher: {},
+                reactiveTypeEnabledInAsfe: {},
+                sideRailAvailableSpace: [],
+                sideRailOverlappableElements: [],
+                stateForType: {},
+                tagSpecificState: {},
+                wasPlaTagProcessed: true,
+                wasReactiveAdConfigReceived: { 1: true, 2: true, 8: true },
+                wasReactiveAdVisible: {},
+                wasReactiveTagRequestSent: true,
+                description: "Can't disable auto ads programmatically on the page, so here we are!"
+            };
+var d = {"ab":"","km":{},"pv":"","vu":"fd2d5da7-46bc-4c87-73ef-e0536312a651","r":{"r":[{"p":" ezoic_pub_ad_placeholder-901-under_page_title-300x250-901-nonexxxnonexxxxxxezmaxscaleval100 ","s":901,"h":280,"w":728,"r":true},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-250x250-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-300x250-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-320x100-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-300x50v2-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-320x50-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-336x280-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-320x100v2-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-468x60-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-580x400-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-250x250x2-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-909-under_first_paragraph-728x90-909-nonexxxnonexxxxxxezmaxscaleval100 ","s":909},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-250x250-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-300x250-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-320x100-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-300x50v2-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-320x50-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-336x280-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-320x100v2-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-468x60-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-580x400-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-250x250x2-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-910-under_second_paragraph-728x90-910-nonexxxnonexxxxxxezmaxscaleval100 ","s":910},{"p":" ezoic_pub_ad_placeholder-911-mid_content-250x250-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-300x250-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-320x100-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-300x50v2-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-320x50-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-336x280-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-911-mid_content-320x100v2-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-468x60-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-580x400-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-250x250x2-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-911-mid_content-728x90-911-nonexxxnonexxxxxxezmaxscaleval100 ","s":911},{"p":" ezoic_pub_ad_placeholder-912-long_content-250x250-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-300x250-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-320x100-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-300x50v2-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-320x50-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-336x280-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-912-long_content-320x100v2-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-468x60-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-580x400-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-250x250x2-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-912-long_content-728x90-912-nonexxxnonexxxxxxezmaxscaleval100 ","s":912},{"p":" ezoic_pub_ad_placeholder-913-longer_content-250x250-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-300x250-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-320x100-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-300x50v2-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-320x50-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-336x280-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-320x100v2-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-468x60-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-580x400-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-913-longer_content-250x250x2-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-913-longer_content-728x90-913-nonexxxnonexxxxxxezmaxscaleval100 ","s":913},{"p":" ezoic_pub_ad_placeholder-914-longest_content-250x250-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-300x250-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-320x100-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-300x50v2-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-320x50-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-336x280-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-320x100v2-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-468x60-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-580x400-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-250x250x2-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914},{"p":" ezoic_pub_ad_placeholder-914-longest_content-728x90-914-nonexxxnonexxxxxxezmaxscaleval100 ","s":914,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-250x250-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-300x250-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-320x100-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-300x50v2-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-320x50-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-336x280-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-320x100v2-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-468x60-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-580x400-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-250x250x2-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915},{"p":" ezoic_pub_ad_placeholder-915-incontent_5-728x90-915-nonexxxnonexxxxxxezmaxscaleval100 ","s":915,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-250x250-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-300x250-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-320x100-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-300x50v2-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-320x50-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-336x280-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-320x100v2-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-468x60-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-580x400-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-250x250x2-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-916-incontent_6-728x90-916-nonexxxnonexxxxxxezmaxscaleval100 ","s":916},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-250x250-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-300x250-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-320x100-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-300x50v2-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-320x50-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-336x280-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-320x100v2-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-468x60-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-580x400-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-250x250x2-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-917-incontent_7-728x90-917-nonexxxnonexxxxxxezmaxscaleval100 ","s":917},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-250x250-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-300x250-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-320x100-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-300x50v2-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-320x50-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-336x280-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-320x100v2-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-468x60-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-580x400-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-250x250x2-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-918-incontent_8-728x90-918-nonexxxnonexxxxxxezmaxscaleval100 ","s":918},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-250x250-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-300x250-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-320x100-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-300x50v2-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-320x50-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-336x280-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-320x100v2-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-468x60-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-580x400-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-250x250x2-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-919-incontent_9-728x90-919-nonexxxnonexxxxxxezmaxscaleval100 ","s":919},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-250x250-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-300x250-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-320x100-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-300x50v2-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-320x50-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-336x280-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-320x100v2-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-468x60-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-580x400-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-250x250x2-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-920-incontent_10-728x90-920-nonexxxnonexxxxxxezmaxscaleval100 ","s":920},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-250x250-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-300x250-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-320x100-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-300x50v2-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-320x50-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-336x280-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-320x100v2-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-468x60-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-580x400-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-250x250x2-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-921-incontent_11-728x90-921-nonexxxnonexxxxxxezmaxscaleval100 ","s":921},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-250x250-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-300x250-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-320x100-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-300x50v2-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-320x50-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-336x280-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-320x100v2-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-468x60-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-580x400-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-250x250x2-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922},{"p":" ezoic_pub_ad_placeholder-922-incontent_12-728x90-922-nonexxxnonexxxxxxezmaxscaleval100 ","s":922,"h":400,"w":728},{"p":" ezoic_pub_ad_placeholder-100-bottom_floating-970x90-100-nonexxxnonexxxxxxezmaxscaleval100 ","s":100,"h":90,"w":970,"r":true}],"a":{"100":true,"12":true,"901":true,"909":true,"910":true,"911":true,"912":true,"913":true,"914":true,"915":true,"916":true,"917":true,"918":true,"919":true,"920":true,"921":true,"922":true},"g":-1,"l":{"0":22,"1":3,"2":2,"3":1,"4":-1,"5":-1},"m":{"0":22,"1":3,"2":2,"3":1,"4":-1,"5":-1},"v":0,"ve":false,"hr":false,"sa":false},"cr":"","tid":134,"tn":"pub_site","url":"","wc":3144,"ff":1,"dhh":""};
+d.ab = _ezaq.ab_test_id;
+d.pv = _ezaq.page_view_id;
+d.vu = _ezaq.visit_uuid;
+d.url = window.location.href;
+var dynamicAddScript = function(script) {
+	if(window.ezFinishedStatic === true) {
+		console.error("attempted to load dynamic script again");
+		return;
+	}
+	var errorMessages = [];
+	function errorHandler(event) {
+	  var errorObj = event.error;
+	  if (errorObj && errorObj.stack && errorObj.stack.indexOf('dynamicAddScript') !== -1) {
+		var errorMessage = {
+		  Message: event.message,
+		  LineNo: event.lineno,
+		  ColumnNo: event.colno,
+		  Stack: errorObj.stack
+		};
+		errorMessages.push(errorMessage);
+	  }
+
+	  if (typeof window.onerror === 'function') {
+		window.onerror.apply(this, arguments);
+	  }
+	}
+ 	window.addEventListener('error', errorHandler);
+
+	var ezDynamic = document.createElement('script');
+	ezDynamic.type = 'text/javascript';
+	ezDynamic.innerHTML = script;
+	document.head.appendChild(ezDynamic);
+
+	window.removeEventListener('error', errorHandler);
+	if (window.ezFinishedStatic !== true || typeof window.ezstaticerrors !== 'undefined') {
+		d.Script = script;
+		d.ErrorMessages = JSON.stringify(errorMessages);
+		d.ErrorStaticMessages = window.ezstaticerrors || '';
+		var dataTxt = JSON.stringify(d);
+		if (dataTxt.length > 0) {
+			var logXHR = new XMLHttpRequest();
+			logXHR.open('POST','/ezais/log?cb=1', true);
+			logXHR.setRequestHeader('Content-Type','application/json');
+			logXHR.send(dataTxt);
+		}
+	}
+};
+var dataText = JSON.stringify(d);
+if (dataText.length > 0) {
+	var startTime = Date.now() - __ez.stms;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST','/ezais/dynamic?cb=1', true);
+	xhr.onload = function () {
+		if (xhr.status!=200) {
+            return;
+		}
+
+        if(document.readyState !== 'loading') {
+            dynamicAddScript(xhr.response);
+            return;
+        }
+
+        var eventFunc = function() {
+            if(document.readyState === 'loading') {
+                return;
+            }
+            document.removeEventListener('readystatechange', eventFunc, false);
+            dynamicAddScript(xhr.response);
+        };
+
+        document.addEventListener('readystatechange', eventFunc, false);
+	};
+	xhr.setRequestHeader('Content-Type','text/plain');
+	xhr.send(dataText);
+}
+}
+
+function callDynamicAfterConsent() {
+	if (window.__tcfapi) {
+		window.__tcfapi("addEventListener", 2, function (tcdata, success) {
+			if (success) {
+				if(tcdata.gdprApplies == true) {
+					if(tcdata.eventStatus === "useractioncomplete" || tcdata.eventStatus === "tcloaded") {
+						__ez.queue.addFunc("productEzoicAds", "productEzoicAds", null, true, ['ezaqReady'], false, false, false, true);
+					}
+				} else {
+					__ez.queue.addFunc("productEzoicAds", "productEzoicAds", null, true, ['ezaqReady'], false, false, false, true);
+				}
+			}
+		});
+	} else {
+		__ez.queue.addFunc("productEzoicAds", "productEzoicAds", null, true, ['ezaqReady'], false, false, false, true);
+	}
+}
+
+
+if (window.__tcfapi) {
+	callDynamicAfterConsent();
+} else {
+	if (typeof window.ezCMPQueue !== "undefined") {
+		window.ezCMPQueue.push(callDynamicAfterConsent);
+	} else {
+		__ez.queue.addFunc("productEzoicAds", "productEzoicAds", null, true, ['ezaqReady'], false, false, false, true);
+	}
+}
+</script><!--<base href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/">--><base href=".">
+	
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="https://embeddedthere.com/wp-content/uploads/2023/03/E.png">
+		<link rel="profile" href="https://gmpg.org/xfn/11">
+
+	<title>Getting Started with FreeRTOS in STM32: Example Code included – Embedded There</title>
+<meta name="robots" content="max-image-preview:large">
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel="dns-prefetch" href="https://www.googletagmanager.com/">
+<link rel="alternate" type="application/rss+xml" title="Embedded There » Feed" href="https://embeddedthere.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Embedded There » Comments Feed" href="https://embeddedthere.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Embedded There » Getting Started with FreeRTOS in STM32: Example Code included Comments Feed" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/feed/">
+		<!-- This site uses the Google Analytics by MonsterInsights plugin v9.4.1 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+		<!-- Note: MonsterInsights is not currently configured on this site. The site owner needs to authenticate with Google Analytics in the MonsterInsights settings panel. -->
+					<!-- No tracking code set -->
+				<!-- / Google Analytics by MonsterInsights -->
+		<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/embeddedthere.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\ud83d\udd25","\ud83d\udc26\u200b\ud83d\udd25")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<style id="wp-emoji-styles-inline-css" type="text/css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel="stylesheet" id="wp-block-library-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/style.min.css" type="text/css" media="all">
+<style id="classic-theme-styles-inline-css" type="text/css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id="global-styles-inline-css" type="text/css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel="stylesheet" id="contact-form-7-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="toc-screen-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/screen.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="ez-toc-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/screen(1).min.css" type="text/css" media="all">
+<style id="ez-toc-inline-css" type="text/css">
+div#ez-toc-container .ez-toc-title {font-size: 120%;}div#ez-toc-container .ez-toc-title {font-weight: 500;}div#ez-toc-container ul li {font-size: 97%;}div#ez-toc-container ul li {font-weight: 500;}div#ez-toc-container nav ul ul li {font-size: 90%;}
+.ez-toc-container-direction {direction: ltr;}.ez-toc-counter ul{counter-reset: item ;}.ez-toc-counter nav ul li a::before {content: counters(item, '.', decimal) '. ';display: inline-block;counter-increment: item;flex-grow: 0;flex-shrink: 0;margin-right: .2em; float: left; }.ez-toc-widget-direction {direction: ltr;}.ez-toc-widget-container ul{counter-reset: item ;}.ez-toc-widget-container nav ul li a::before {content: counters(item, '.', decimal) '. ';display: inline-block;counter-increment: item;flex-grow: 0;flex-shrink: 0;margin-right: .2em; float: left; }
+</style>
+<link rel="stylesheet" id="defer-income-school-style-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/main.css" type="text/css" media="all">
+<link rel="stylesheet" id="defer-style-min-width768-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/min-width768.css" type="text/css" media="(min-width: 768px)">
+<link rel="stylesheet" id="defer-style-min-width960-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/min-width960.css" type="text/css" media="(min-width: 960px)">
+<link rel="stylesheet" id="defer-style-min-width1200-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/min-width1200.css" type="text/css" media="(min-width: 1200px)">
+<link rel="stylesheet" id="enlighterjs-css" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/enlighterjs.min.css" type="text/css" media="all">
+<style id="custom-style-inline-css" type="text/css">
+.search-wrapper #search-icon{background:url("https://embeddedthere.com/wp-content/themes/acabado/img/search-icon.png") center/cover no-repeat #fff;}.share-container .email-btn:before{background:url("https://embeddedthere.com/wp-content/themes/acabado/img/envelope.svg") center/cover no-repeat;}.share-container .print-btn:before{background:url("https://embeddedthere.com/wp-content/themes/acabado/img/print-icon.svg") center/cover no-repeat;}.externallinkimage{background-image:url("https://embeddedthere.com/wp-content/themes/acabado/img/extlink.png")}
+</style>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/jquery.min.js.download" id="jquery-core-js"></script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/jquery-migrate.min.js.download" id="jquery-migrate-js"></script>
+
+<!-- Google tag (gtag.js) snippet added by Site Kit -->
+
+<!-- Google Analytics snippet added by Site Kit -->
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/js" id="google_gtagjs-js"></script>
+<script type="text/javascript" id="google_gtagjs-js-after">
+/* <![CDATA[ */
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag("set","linker",{"domains":["embeddedthere.com"]});
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "GT-PJ4RG49");
+/* ]]> */
+</script>
+
+<!-- End Google tag (gtag.js) snippet added by Site Kit -->
+<link rel="https://api.w.org/" href="https://embeddedthere.com/wp-json/"><link rel="alternate" title="JSON" type="application/json" href="https://embeddedthere.com/wp-json/wp/v2/posts/1099"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://embeddedthere.com/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.8.1">
+<link rel="canonical" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/">
+<link rel="shortlink" href="https://embeddedthere.com/?p=1099">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://embeddedthere.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fembeddedthere.com%2Fgetting-started-with-freertos-in-stm32-example-code-included%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://embeddedthere.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fembeddedthere.com%2Fgetting-started-with-freertos-in-stm32-example-code-included%2F&amp;format=xml">
+<meta name="generator" content="Site Kit by Google 1.151.0"><meta name="description" content="In this tutorial, we&#39;ll explore the fundamentals of RTOS and learn how to get started with FreeRTOS in STM32 Microcontroller. Along the way, we&#39;ll also provide example code snippets to help you grasp the concepts more easily."><meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content=" | Embedded There">
+<meta property="og:description" content="In this tutorial, we&#39;ll explore the fundamentals of RTOS and learn how to get started with FreeRTOS in STM32 Microcontroller. Along the way, we&#39;ll also provide example code snippets to help you grasp the concepts more easily.">
+<meta property="og:url" content="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/">
+<meta property="og:site_name" content="Embedded There">
+<meta property="og:image" content="https://embeddedthere.com/wp-content/uploads/2023/05/thumbnil_freertos_1-min-1024x576.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="In this tutorial, we&#39;ll explore the fundamentals of RTOS and learn how to get started with FreeRTOS in STM32 Microcontroller. Along the way, we&#39;ll also provide example code snippets to help you grasp the concepts more easily.">
+<meta name="category" content="STM32">
+					<link rel="preconnect" href="https://fonts.gstatic.com/">
+ 					<link rel="stylesheet" href="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/css2" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;">
+				
+<script type="text/javascript">
+var ezoTemplate = 'pub_site';
+var ezouid = '1';
+var ezoFormfactor = '1';
+</script><script data-ezscrex="false" type="text/javascript">
+var soc_app_id = '0';
+var did = 446325;
+var ezdomain = 'embeddedthere.com';
+var ezoicSearchable = 1;
+</script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/indy.js.download" async=""></script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/mulvane.js.download" async=""></script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/birmingham.js.download" async=""></script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/wp-emoji-release.min.js.download" defer=""></script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/screx.js.download" async=""></script></head>
+
+
+<body class="wp-singular post-template-default single single-post postid-1099 single-format-standard wp-theme-acabado no-sidebar">
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#content">Skip to content</a>
+
+	
+	<header id="masthead" class="site-header desktop-toggle toggled">
+		<div class="inner-wrap">
+			<div class="hamburger-wrapper desktop">
+				<button class="hamburger hamburger--squeeze menu-toggle" type="button" aria-label="Menu" aria-controls="primary-menu" aria-expanded="true">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+					<span class="label">MENU</span>
+				</button>
+			</div>
+			<div class="site-branding">
+								<a href="https://embeddedthere.com/" class="custom-logo-link" rel="home" itemprop="url"><img width="300" height="150" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/2EMBEDDED-1-300x150.png" class="attachment-medium size-medium" alt="EmbeddedThere Logo" decoding="async" srcset="https://embeddedthere.com/wp-content/uploads/2023/03/2EMBEDDED-1-300x150.png 300w, https://embeddedthere.com/wp-content/uploads/2023/03/2EMBEDDED-1.png 480w" sizes="(max-width: 300px) 100vw, 300px"></a>
+									<!-- <h1 class="site-title"><a tabindex="-1" href="" rel="home"></a></h1> -->
+										<!-- <p class="site-title"><a tabindex="-1" href="" rel="home"></a></p> -->
+								</div><!-- .site-branding -->
+			<div class="search-wrapper">
+				<a href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#open" id="search-icon" style="background: url(https://embeddedthere.com/wp-content/themes/acabado/img/search-icon.png) center/cover no-repeat #fff;"><span class="sr-only">Search</span></a>
+				<div class="search-form-wrapper">
+	<form role="search" method="get" class="search-form" action="https://embeddedthere.com/">
+		<style>
+		.search-wrapper.search-active .search-field {
+			width: 200px;
+			display: inline-block;
+			vertical-align: top;
+		}
+		.search-wrapper button[type="submit"] {
+			display: inline-block;
+			vertical-align: top;
+			top: -35px;
+			position: relative;
+			background-color: transparent;
+			height: 30px;
+			width: 30px;
+			padding: 0;
+			margin: 0;
+			background-image: url("https://embeddedthere.com/wp-content/themes/acabado/img/search-icon.png");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+		.search-wrapper.search-active button[type="submit"] {
+			display: inline-block !important;
+		}
+		</style>
+		<label for="s">
+			<span class="screen-reader-text">Search for:</span>
+		</label>
+		<input type="search" id="search-field" class="search-field" placeholder="Search …" value="" name="s">
+		<button type="submit" class="search-submit" style="display:none;"><span class="screen-reader-text"></span></button>
+	</form>
+</div>			</div>
+		</div>
+
+		<nav id="site-navigation" class="main-navigation" style="overflow: visible;">
+			<!-- <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"></button> -->
+			<div class="menu-main-menu-container"><ul id="primary-menu" class="inner-wrap nav-menu" aria-expanded="true"><li id="menu-item-166" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-166"><a href="https://embeddedthere.com/">Home</a></li>
+<li id="menu-item-159" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-159"><a href="https://embeddedthere.com/category/arduino/">Arduino</a></li>
+<li id="menu-item-160" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-160"><a href="https://embeddedthere.com/category/esp32/">Esp32</a></li>
+<li id="menu-item-163" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-163"><a href="https://embeddedthere.com/category/pic/">PIC</a></li>
+<li id="menu-item-164" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-164"><a href="https://embeddedthere.com/category/stm32/">STM32</a></li>
+<li id="menu-item-1540" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-1540"><a href="https://embeddedthere.com/category/raspberry-pi/">Raspberry Pi</a>
+<button type="button" class="toggle-submenu"><span class="sr-only">Submenu Toggle</span>
+            </button><ul class="submenu">
+	<li id="menu-item-1541" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1541"><a href="https://embeddedthere.com/category/raspberry-pi/raspberry-pi-pico-projects/">Raspberry Pi Pico Projects</a></li>
+</ul>
+</li>
+<li id="menu-item-1075" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-1075"><a href="https://embeddedthere.com/category/electronics/">Electronics</a>
+<button type="button" class="toggle-submenu"><span class="sr-only">Submenu Toggle</span>
+            </button><ul class="submenu">
+	<li id="menu-item-2216" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2216"><a href="https://embeddedthere.com/category/electronics/analog-electronics/">Analog Electronics</a></li>
+	<li id="menu-item-2217" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2217"><a href="https://embeddedthere.com/category/electronics/digital-electronics/">Digital Electronics</a></li>
+</ul>
+</li>
+<li id="menu-item-1860" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1860"><a href="https://embeddedthere.com/category/reviews/">Reviews</a></li>
+<li id="menu-item-167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-167"><a href="https://embeddedthere.com/about-us/">About Us</a></li>
+<li id="menu-item-168" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-168"><a href="https://embeddedthere.com/contact-us/">Contact</a></li>
+</ul></div>		</nav><!-- #site-navigation -->
+	</header><!-- #masthead -->
+
+	<div id="content" class="site-content">
+		
+	<div id="primary" class="content-area ">
+		<main id="main" class="site-main">
+
+		
+<article id="post-1099" class="post-1099 post type-post status-publish format-standard has-post-thumbnail hentry category-stm32 tag-arm-cortex-m4 tag-freertos tag-rtos tag-stm32-freertos tag-stm32-nucleo-board tag-stm32-rtos tag-stm32cubeide">
+	<header class="entry-header">
+		<h1 class="entry-title">Getting Started with FreeRTOS in STM32: Example Code included</h1>
+			<div class="entry-meta">
+				<meta itemprop="datePublished" content="2023-05-21"><span class="byline"> Written by <span class="author vcard"><a class="url fn n" href="https://embeddedthere.com/author/embeddedthere/">Mahamudul Hasan</a></span> </span><meta itemprop="author" content="Mahamudul Hasan"><link id="page-url" itemprop="mainEntityOfPage" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/"><span class="term-list"> in <a href="https://embeddedthere.com/category/stm32/" rel="category tag">STM32</a></span><span class="byline">&nbsp;</span>			</div><!-- .entry-meta -->
+      
+      
+	  	</header><!-- .entry-header -->
+
+	
+	<div class="entry-content" itemprop="articleBody">
+		
+<p>If you’re venturing into the world of embedded systems development, you’ll soon realize the importance of an efficient real-time operating system (RTOS) to manage tasks and resources effectively. One popular choice for RTOS implementation is FreeRTOS, a powerful and versatile open-source solution. In this tutorial, we’ll explore the fundamentals of RTOS and learn how to get started with FreeRTOS in STM32 Microcontroller. Along the way, we’ll also provide example code snippets to help you grasp the concepts more easily.</p><!-- End Ezoic - gen_under_page_title - under_page_title --><span id="ezoic-pub-ad-placeholder-901" data-method="placement-service"></span><span data-ez-ph-id="901" style="max-width:100% !important;margin-top:15px !important;text-align:center !important;line-height:0px;margin-bottom:15px !important;margin-left:auto !important;min-width:728px;min-height:250px;padding:0;float:none !important;box-sizing:content-box;margin-right:auto !important;display:block !important;"></span><!-- Ezoic - gen_under_page_title - under_page_title --><div id="ez-toc-container" class="ez-toc-v2_0_73 counter-hierarchy ez-toc-counter ez-toc-grey ez-toc-container-direction">
+<div class="ez-toc-title-container">
+<p class="ez-toc-title" style="cursor:inherit">Table of Contents</p>
+<span class="ez-toc-title-toggle"><a href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#" class="ez-toc-pull-right ez-toc-btn ez-toc-btn-xs ez-toc-btn-default ez-toc-toggle" aria-label="Toggle Table of Content"><span class="ez-toc-js-icon-con"><span class=""><span class="eztoc-hide" style="display:none;">Toggle</span><span class="ez-toc-icon-toggle-span"><svg style="fill: #7a7a7a;color:#7a7a7a" xmlns="http://www.w3.org/2000/svg" class="list-377408" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M6 6H4v2h2V6zm14 0H8v2h12V6zM4 11h2v2H4v-2zm16 0H8v2h12v-2zM4 16h2v2H4v-2zm16 0H8v2h12v-2z" fill="currentColor"></path></svg><svg style="fill: #7a7a7a;color:#7a7a7a" class="arrow-unsorted-368013" xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 24 24" version="1.2" baseProfile="tiny"><path d="M18.2 9.3l-6.2-6.3-6.2 6.3c-.2.2-.3.4-.3.7s.1.5.3.7c.2.2.4.3.7.3h11c.3 0 .5-.1.7-.3.2-.2.3-.5.3-.7s-.1-.5-.3-.7zM5.8 14.7l6.2 6.3 6.2-6.3c.2-.2.3-.5.3-.7s-.1-.5-.3-.7c-.2-.2-.4-.3-.7-.3h-11c-.3 0-.5.1-.7.3-.2.2-.3.5-.3.7s.1.5.3.7z"></path></svg></span></span></span></a></span></div>
+<nav><ul class="ez-toc-list ez-toc-list-level-1 "><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-1" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#What_is_RTOS" title="What is RTOS?">What is RTOS?</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-2" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#How_RTOS_works" title="How RTOS works?">How RTOS works?</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-3" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Difference_between_super_loop_architecture_and_RTOS_in_Microcontroller" title="Difference between super loop architecture and RTOS in Microcontroller">Difference between super loop architecture and RTOS in Microcontroller</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-4" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#What_is_FreeRTOS" title="What is FreeRTOS?">What is FreeRTOS?</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-5" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#How_to_setup_FreeRTOS_in_STM32_Microcontroller" title="How to setup FreeRTOS in STM32 Microcontroller">How to setup FreeRTOS in STM32 Microcontroller</a><ul class="ez-toc-list-level-3"><li class="ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-6" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#FreeRTOS_vs_CMSIS-RTOS" title="FreeRTOS vs. CMSIS-RTOS">FreeRTOS vs. CMSIS-RTOS</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-7" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Required_Hardware_for_the_project" title="Required Hardware for the project">Required Hardware for the project</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-8" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#For_troubleshooting_some_extremely_useful_test_equipment" title="For troubleshooting, some extremely useful test equipment">For troubleshooting, some extremely useful test equipment</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-9" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Circuit_Diagram" title="Circuit Diagram">Circuit Diagram</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-10" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Circuit_Connections" title="Circuit Connections">Circuit Connections</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-11" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Creating_a_FreeRTOS_project_in_STM32CubeIDE" title="Creating a FreeRTOS project in STM32CubeIDE">Creating a FreeRTOS project in STM32CubeIDE</a></li></ul></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-12" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Project_Code_and_Description" title="Project Code and Description">Project Code and Description</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-13" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Testing_and_Deployment" title="Testing and Deployment">Testing and Deployment</a><ul class="ez-toc-list-level-3"><li class="ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-14" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Full_Source_Code" title="Full Source Code">Full Source Code</a></li></ul></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-15" href="https://embeddedthere.com/getting-started-with-freertos-in-stm32-example-code-included/#Video_Tutorial" title="Video Tutorial">Video Tutorial</a></li></ul></nav></div>
+
+
+
+
+<p><strong>STM32 FreeRTOS tutorial series:</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://embeddedthere.com/stm32-freertos-task-scheduling-tutorial/" target="_blank" rel="noreferrer noopener">STM32 FreeRTOS Task Scheduling Tutorial with Example Code</a></li>
+</ul>
+
+
+
+<p><strong>Our other STM32-related tutorials are:</strong></p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://embeddedthere.com/how-to-interface-stm32-with-rs485-modbus-sensors-with-hal-example-code/" target="_blank" rel="noreferrer noopener">How to interface STM32 with RS485 (Modbus) sensors</a></li>
+
+
+
+<li><a href="https://embeddedthere.com/stm32-adc-interfacing-with-hal-code-example/" target="_blank" rel="noreferrer noopener">STM32 ADC Interfacing with HAL code example</a></li>
+
+
+
+<li><a href="https://embeddedthere.com/interfacing-stm32-with-i2c-lcd-with-hal-code-example/" target="_blank" rel="noreferrer noopener">Interfacing STM32 with I2C LCD : HAL example code included</a></li>
+
+
+
+<li><a href="https://embeddedthere.com/stm32-bluetooth-module-hc-05-interfacing-with-hal-code-example/" target="_blank" rel="noreferrer noopener">Stm32 Bluetooth module HC-05 interfacing with HAL code example</a></li>
+
+
+
+<li><a href="https://embeddedthere.com/how-to-create-a-project-in-stm32cubemx-for-keil-ide/" target="_blank" rel="noreferrer noopener">How to create a project in stm32CubeMX for Keil uvision Ide</a></li>
+
+
+
+<li><a href="https://embeddedthere.com/how-to-create-stm32-microcontroller-project-using-stm32cubeide-with-example-code/" target="_blank" rel="noreferrer noopener">How to create stm32 project in stm32cubeide with example code</a></li>
+</ul>
+
+
+
+<h2 class="wp-block-heading"><span class="ez-toc-section" id="What_is_RTOS"></span>What is RTOS?<span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>RTOS stands for Real-Time Operating System. It is a specialized operating system designed to handle real-time applications that have specific timing and responsiveness requirements. Unlike general-purpose operating systems (OS), an RTOS provides deterministic behavior, ensuring that tasks are executed within specific time constraints.</p>
+
+
+
+<p>In an RTOS, tasks are scheduled and executed based on their priority and time requirements. It ensures that critical tasks receive the necessary processing time and resources to meet their timing deadlines. Real-time operating systems are commonly used in embedded systems, such as microcontrollers, where precise timing and responsiveness are crucial.</p><!-- End Ezoic - gen_under_first_paragraph - under_first_paragraph --><span id="ezoic-pub-ad-placeholder-909" data-method="placement-service"></span><span data-ez-ph-id="909"></span><!-- Ezoic - gen_under_first_paragraph - under_first_paragraph -->
+
+
+
+<figure class="wp-block-image size-large"><img fetchpriority="high" decoding="async" width="1024" height="576" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/Real-Time-Operation-System-RTOS-min-1024x576.webp" alt="RTOS Diagram" class="wp-image-1100" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/Real-Time-Operation-System-RTOS-min-1024x576.webp 1024w, https://embeddedthere.com/wp-content/uploads/2023/05/Real-Time-Operation-System-RTOS-min-300x169.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/Real-Time-Operation-System-RTOS-min-768x432.webp 768w, https://embeddedthere.com/wp-content/uploads/2023/05/Real-Time-Operation-System-RTOS-min.webp 1280w" sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+
+<h2 class="wp-block-heading"><span class="ez-toc-section" id="How_RTOS_works"></span>How RTOS works?<span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>Let’s consider a real-world example to understand how an RTOS works. Imagine you have an autonomous robot that performs various tasks in a warehouse, such as picking up items and placing them in specific locations.</p>
+
+
+
+<p>The robot’s tasks include:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Sensor Reading:</strong> The robot needs to continuously read data from its sensors, such as distance sensors and cameras, to detect obstacles, recognize objects, and navigate the environment.</li>
+
+
+
+<li><strong>Path Planning:</strong> Based on the sensor data, the robot needs to determine the optimal path to navigate through the warehouse, avoiding obstacles and reaching the desired locations efficiently.</li>
+
+
+
+<li><strong>Object Detection:</strong> The robot needs to analyze the camera data to identify and classify objects in its surroundings, distinguishing between different items to be picked up or avoided.</li>
+
+
+
+<li><strong>Motion Control:</strong> Once the path is planned and objects are detected, the robot needs to control its motors and actuators to move smoothly and precisely, following the planned trajectory and performing tasks like grasping objects.</li>
+</ul>
+
+
+
+<p>In this scenario, an RTOS comes into play to manage the execution of these tasks efficiently and in a timely manner. Here’s how it works:</p><!-- End Ezoic - gen_under_second_paragraph - under_second_paragraph --><span id="ezoic-pub-ad-placeholder-910" data-method="placement-service"></span><span data-ez-ph-id="910"></span><!-- Ezoic - gen_under_second_paragraph - under_second_paragraph -->
+
+
+
+<ul class="wp-block-list">
+<li><strong>Task Scheduling:</strong> The RTOS scheduler assigns priorities to each task based on their importance and time constraints. For example, the sensor reading task may have a higher priority to ensure real-time obstacle detection, while path planning can have a lower priority.</li>
+
+
+
+<li><strong>Context Switching:</strong> The RTOS handles context switching, which means it can pause the execution of one task and switch to another task seamlessly. This allows the robot to respond quickly to changing situations and events.</li>
+
+
+
+<li><strong>Resource Management: </strong>The RTOS manages the sharing of resources among tasks. For instance, if multiple tasks need to access the robot’s motors simultaneously, the RTOS ensures that they can do so without conflicts by implementing synchronization mechanisms like semaphores or mutexes. We will discuss semaphores and mutexes in the next tutorials.</li>
+
+
+
+<li><strong>Timeliness:</strong> The RTOS guarantees that critical tasks are executed within their specified deadlines. For example, the motion control task needs to execute with precise timing to ensure the robot moves accurately and avoids collisions.</li>
+</ul>
+
+
+
+<p>By utilizing an RTOS, the robot can effectively handle multiple tasks concurrently, respond to sensor inputs in real time, and achieve reliable and deterministic behavior. The RTOS ensures that each task receives the necessary processing time and resources to fulfill its requirements, ultimately enabling the smooth and efficient operation of the autonomous robot in the warehouse environment.</p>
+
+
+
+<h2 class="wp-block-heading"><span class="ez-toc-section" id="Difference_between_super_loop_architecture_and_RTOS_in_Microcontroller"></span>Difference between super loop architecture and RTOS in Microcontroller<span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>When it comes to designing microcontroller-based systems, there are two common approaches for handling tasks and resources: super loop architecture and Real-Time Operating System (RTOS). Both have their advantages and drawbacks, and the choice between them depends on the specific application requirements and constraints.</p><!-- End Ezoic - gen_mid_content - mid_content --><span id="ezoic-pub-ad-placeholder-911" data-method="placement-service"></span><span data-ez-ph-id="911"></span><!-- Ezoic - gen_mid_content - mid_content -->
+
+
+
+<p>Super loop architecture, also known as the main loop architecture, is a simple and straightforward approach for handling tasks in microcontroller-based systems. In this architecture, the main program loop repeatedly executes a sequence of tasks, each of which takes a fixed amount of time to complete. The tasks are scheduled sequentially, and the order of execution is typically determined by the order in which they appear in the main loop.</p>
+
+
+
+<p>RTOS, on the other hand, is a more advanced and flexible approach for handling tasks and resources in microcontroller-based systems. In RTOS, the tasks are managed by a kernel, which is responsible for scheduling, context switching, and resource allocation. Each task has its own priority and execution time, and the kernel ensures that high-priority tasks are executed before low-priority ones.</p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img decoding="async" width="1024" height="576" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/super_loop_rtos-min-1024x576.webp" alt="super loop vs RTOS" class="wp-image-1101" style="width:840px;height:472px" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/super_loop_rtos-min-1024x576.webp 1024w, https://embeddedthere.com/wp-content/uploads/2023/05/super_loop_rtos-min-300x169.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/super_loop_rtos-min-768x432.webp 768w, https://embeddedthere.com/wp-content/uploads/2023/05/super_loop_rtos-min.webp 1280w" sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+
+<h2 class="wp-block-heading"><span class="ez-toc-section" id="What_is_FreeRTOS"></span>What is FreeRTOS?<span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>FreeRTOS, which stands for Free Real-Time Operating System, is an open-source real-time operating system kernel designed specifically for embedded systems. It provides a compact and efficient solution for running multiple tasks concurrently while meeting strict timing requirements.</p><!-- End Ezoic - gen_long_content - long_content --><span id="ezoic-pub-ad-placeholder-912" data-method="placement-service"></span><span data-ez-ph-id="912"></span><!-- Ezoic - gen_long_content - long_content -->
+
+
+
+<p>Developed by Richard Barry in 2003, FreeRTOS offers a preemptive multitasking environment, where tasks are scheduled and executed based on their priorities. It allows developers to break down complex applications into smaller tasks, each with its own priority and execution requirements.</p>
+
+
+
+<p>FreeRTOS supports a wide range of microcontrollers and microprocessors, including the popular STM32 family. It offers features such as task management, inter-task communication, synchronization mechanisms, timers, and memory management.</p>
+
+
+
+<p>Tasks in FreeRTOS are created and managed using APIs provided by the kernel. Each task has its own stack and can perform specific operations independently. The kernel scheduler determines which task should run based on their priorities and any synchronization or timing constraints.</p><!-- End Ezoic - gen_longer_content - longer_content --><span id="ezoic-pub-ad-placeholder-913" data-method="placement-service"></span><span data-ez-ph-id="913"></span><!-- Ezoic - gen_longer_content - longer_content -->
+
+
+
+<p>FreeRTOS also provides synchronization mechanisms like semaphores, mutexes, and queues, which allow tasks to communicate and share resources safely. This ensures coordinated execution and avoids conflicts between tasks.</p>
+
+
+
+<p>One of the key advantages of FreeRTOS is its small footprint. It has a minimal memory overhead, making it suitable for resource-constrained embedded systems. Additionally, it is well-documented, actively maintained, and has a large user community, providing ample resources and support for developers.</p>
+
+
+
+<figure class="wp-block-image size-full is-resized"><img decoding="async" width="850" height="360" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/freeRTOS_logo-min.webp" alt="FreeRTOS tutorial" class="wp-image-1102" style="width:342px;height:144px" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/freeRTOS_logo-min.webp 850w, https://embeddedthere.com/wp-content/uploads/2023/05/freeRTOS_logo-min-300x127.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/freeRTOS_logo-min-768x325.webp 768w" sizes="(max-width: 850px) 100vw, 850px"></figure>
+
+
+
+<p>To read more about FreeRTOS, you can visit their official <a href="https://www.freertos.org/" target="_blank" rel="noreferrer noopener">website</a>.</p><!-- End Ezoic - gen_longest_content - longest_content --><span id="ezoic-pub-ad-placeholder-914" data-method="placement-service"></span><span data-ez-ph-id="914"></span><!-- Ezoic - gen_longest_content - longest_content -->
+
+
+
+<h2 class="wp-block-heading"><span class="ez-toc-section" id="How_to_setup_FreeRTOS_in_STM32_Microcontroller"></span>How to setup FreeRTOS in STM32 Microcontroller<span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>In this section of the tutorial, we will show how to set up the FreeRTOS project in the STM32 <strong>NUCLEO</strong>–<strong>F446RE</strong> Development board using STM32Cube IDE and build a real-world example project by using two LEDs that will blink at different speeds according to task priority. We can use any STM32 microcontroller for this project, just set up the project according to your MCU in STM32CubeIDE.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="671" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/IMG_20230520_180851-min-1024x671.webp" alt="stm32 FreeRTOS project tutorial" class="wp-image-1104" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/IMG_20230520_180851-min-1024x671.webp 1024w, https://embeddedthere.com/wp-content/uploads/2023/05/IMG_20230520_180851-min-300x197.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/IMG_20230520_180851-min-768x503.webp 768w, https://embeddedthere.com/wp-content/uploads/2023/05/IMG_20230520_180851-min.webp 1280w" sizes="auto, (max-width: 1024px) 100vw, 1024px"></figure>
+
+
+
+<h3 class="wp-block-heading"><span class="ez-toc-section" id="FreeRTOS_vs_CMSIS-RTOS"></span>FreeRTOS vs. CMSIS-RTOS<span class="ez-toc-section-end"></span></h3>
+
+
+
+<p>Before setup the FreeRTOS in STM32, we need to understand the integration of FreeRTOS within STM32CubeIDE is crucial. Although FreeRTOS serves as a foundational software framework, handling task switching and scheduling, it’s noteworthy that we won’t be directly invoking FreeRTOS functions.</p>
+
+
+
+<p>To enhance code portability across different ARM processors, ARM has developed the CMSIS-RTOS library. This library enables us to make function calls to the underlying RTOS, streamlining the process and ensuring compatibility with a wide range of ARM processors. This image describes how ARM’s CMSIS libraries interact with third-party software:</p><!-- End Ezoic - gen_incontent_5 - incontent_5 --><span id="ezoic-pub-ad-placeholder-915" data-method="placement-service"></span><span data-ez-ph-id="915"></span><!-- Ezoic - gen_incontent_5 - incontent_5 -->
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="410" height="221" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/CMSIS_RTOS-min.webp" alt="CMSIS-RTOS" class="wp-image-1105" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/CMSIS_RTOS-min.webp 410w, https://embeddedthere.com/wp-content/uploads/2023/05/CMSIS_RTOS-min-300x162.webp 300w" sizes="auto, (max-width: 410px) 100vw, 410px"></figure>
+
+
+
+<p>FreeRTOS is our <strong>RTOS Kernel</strong>. We will be making calls to CMSIS-RTOS (version 2) in order to control the underlying FreeRTOS.</p>
+
+
+
+<h3 class="wp-block-heading"><span class="ez-toc-section" id="Required_Hardware_for_the_project"></span>Required Hardware for the project<span class="ez-toc-section-end"></span></h3>
+
+
+
+<figure class="wp-block-table"><table><thead><tr><th class="has-text-align-center" data-align="center"><strong>Component Name</strong></th><th class="has-text-align-center" data-align="center"><strong>Quantity</strong></th><th class="has-text-align-center" data-align="center"><strong>Purchase Link</strong></th></tr></thead><tbody><tr><td class="has-text-align-center" data-align="center">STM32 Nucleo Dev. Board</td><td class="has-text-align-center" data-align="center">1</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/420OEPc" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">LED</td><td class="has-text-align-center" data-align="center">2</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/3BMXN3c" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">Resistor (330 ohm)</td><td class="has-text-align-center" data-align="center">2</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/3omdyes" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">Jumper Wire Pack</td><td class="has-text-align-center" data-align="center">1</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/3OuxKFv" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">Breadboard</td><td class="has-text-align-center" data-align="center">1</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/3WmpNnQ" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">USB Mini-B cable</td><td class="has-text-align-center" data-align="center">1</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/43fMTi9" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr></tbody></table></figure>
+
+
+
+<h3 class="wp-block-heading"><span class="ez-toc-section" id="For_troubleshooting_some_extremely_useful_test_equipment"></span>For troubleshooting, some extremely useful test equipment<span class="ez-toc-section-end"></span></h3>
+
+
+
+<figure class="wp-block-table"><table><thead><tr><th class="has-text-align-center" data-align="center"><strong>Equipment Name</strong></th><th class="has-text-align-center" data-align="center"><strong>Purchase Link</strong></th></tr></thead><tbody><tr><td class="has-text-align-center" data-align="center">Best&nbsp;Oscilloscope for Professionals</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/45lWkOR" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">Best&nbsp;Oscilloscope for Beginners and Students</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/3Mqvk8d" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">Logic Analyzer</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/3ooeK12" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">Best Budget Multimeter</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/3ojxeQ6" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr><tr><td class="has-text-align-center" data-align="center">Adjustable&nbsp;Bench Power Supply</td><td class="has-text-align-center" data-align="center"><a href="https://amzn.to/3ootwog" target="_blank" rel="noreferrer noopener">Amazon</a></td></tr></tbody></table></figure>
+
+
+
+<p>Affiliate Disclosure: When you click on links to make a purchase, this can result in this website earning a commission. Affiliate programs and affiliations include, but are not limited to Amazon.com</p>
+
+
+
+<h3 class="wp-block-heading"><span class="ez-toc-section" id="Circuit_Diagram"></span>Circuit Diagram<span class="ez-toc-section-end"></span></h3>
+
+
+
+<figure class="wp-block-image size-full is-resized"><img loading="lazy" decoding="async" width="752" height="538" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/circuit_diagram-min.webp" alt="stm32 FreeRTOS tutorial circuit diagram" class="wp-image-1106" style="width:752px;height:538px" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/circuit_diagram-min.webp 752w, https://embeddedthere.com/wp-content/uploads/2023/05/circuit_diagram-min-300x215.webp 300w" sizes="auto, (max-width: 752px) 100vw, 752px"></figure>
+
+
+
+<h3 class="wp-block-heading"><span class="ez-toc-section" id="Circuit_Connections"></span>Circuit Connections<span class="ez-toc-section-end"></span></h3>
+
+
+
+<figure class="wp-block-table"><table><thead><tr><th class="has-text-align-center" data-align="center">STM32 Nucleo Dev. Board</th><th class="has-text-align-center" data-align="center">LED Pin</th></tr></thead><tbody><tr><td class="has-text-align-center" data-align="center">GPIO B Pin 4 (PB4 / D5)</td><td class="has-text-align-center" data-align="center">task_1 LED (Anode pin)</td></tr><tr><td class="has-text-align-center" data-align="center">GPIO B Pin 5 (PB5 / D4)</td><td class="has-text-align-center" data-align="center">task_2 LED (cathode pin)</td></tr><tr><td class="has-text-align-center" data-align="center">Ground</td><td class="has-text-align-center" data-align="center">task_1 and task_2 LED Cathode pin</td></tr></tbody></table></figure>
+
+
+
+<h3 class="wp-block-heading"><span class="ez-toc-section" id="Creating_a_FreeRTOS_project_in_STM32CubeIDE"></span>Creating a FreeRTOS project in STM32CubeIDE<span class="ez-toc-section-end"></span></h3>
+
+
+
+<p>For project creation in Stm32Cube IDE, please visit your previous tutorial. The link is given below:</p><!-- End Ezoic - gen_incontent_6 - incontent_6 --><span id="ezoic-pub-ad-placeholder-916" data-method="placement-service"></span><span data-ez-ph-id="916"></span><!-- Ezoic - gen_incontent_6 - incontent_6 -->
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://embeddedthere.com/how-to-create-stm32-microcontroller-project-using-stm32cubeide-with-example-code/" target="_blank" rel="noreferrer noopener">How to create stm32 project in stm32cubeide with example code</a></li>
+</ul>
+
+
+
+<p>After creating the project in <strong>Stm32CubeIDE, </strong>it will open the default page for you called <strong>Device Configuration Tools. </strong>In&nbsp; <strong>Device Configuration Tools </strong>go to <strong>Categories</strong> &gt; <strong>Middleware</strong> &gt; <strong>FREERTOS</strong>. Under the Mode Selection Dropdown menu, select <strong>Interface</strong> to <strong>CMSIS_V2. </strong>Then select the <strong>Config parameters </strong>tab and go to <strong>Kernel settings </strong>and Enable <strong>USE_PREEMPTION</strong>. We Enable the Preemption because We will use Preemption based scheduling in which higher priority tasks can take control from the lower ones.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="823" height="578" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/1-min-2.webp" alt="stm32CubeIDE FreeRTOS project creation" class="wp-image-1107" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/1-min-2.webp 823w, https://embeddedthere.com/wp-content/uploads/2023/05/1-min-2-300x211.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/1-min-2-768x539.webp 768w" sizes="auto, (max-width: 823px) 100vw, 823px"></figure>
+
+
+
+<p>After that, go to the <strong>Tasks and Queues</strong> tab and Here you will see the predefined task called<strong> defaultTask, </strong>we will rename the task as task_1. You can also change the <strong>Priority</strong>, <strong>Stack Size,</strong> and <strong>Entry Function</strong> parameters of the task. We will select Priority as <strong>osPriorityNornal</strong>, Stack Size (Words) to <strong>128</strong>.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="859" height="584" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/4-min.webp" alt="" class="wp-image-1108" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/4-min.webp 859w, https://embeddedthere.com/wp-content/uploads/2023/05/4-min-300x204.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/4-min-768x522.webp 768w" sizes="auto, (max-width: 859px) 100vw, 859px"></figure>
+
+
+
+<p>After editing the first tasks, we will create another task called <strong>task_2</strong> and we change the Priority of this task to <strong>osPriorityBelowNormal</strong> this means <strong>task_1</strong> will have a higher priority than the <strong>task_2</strong> because we selected <strong>task_1</strong> priority as <strong>osPriorityNornal.</strong></p><!-- End Ezoic - gen_incontent_7 - incontent_7 --><span id="ezoic-pub-ad-placeholder-917" data-method="placement-service"></span><span data-ez-ph-id="917"></span><!-- Ezoic - gen_incontent_7 - incontent_7 -->
+
+
+
+<figure class="wp-block-image size-full is-resized"><img loading="lazy" decoding="async" width="872" height="617" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/5-min-1.webp" alt="" class="wp-image-1109" style="width:840px;height:594px" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/5-min-1.webp 872w, https://embeddedthere.com/wp-content/uploads/2023/05/5-min-1-300x212.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/5-min-1-768x543.webp 768w" sizes="auto, (max-width: 872px) 100vw, 872px"></figure>
+
+
+
+<p>After configuring the tasks, go to <strong>System Core</strong> &gt; <strong>Sys </strong>and Select the <strong>Timebase Source</strong> to <strong>TIM6</strong> (Timer 6) because the SysTick timer is a specialized feature found in most ARM processors, serving primarily for operating system tasks. In the context of STM32 microcontrollers, the default configuration sets SysTick to generate an interrupt every 1 millisecond.</p>
+
+
+
+<p>When using the STM32 HAL (Hardware Abstraction Layer), SysTick is automatically utilized for functions like HAL_Delay() and HAL_GetTick(). Consequently, the STM32 HAL framework assigns a high priority to SysTick. However, FreeRTOS needs SysTick for its scheduler as a result, it requires SysTick to be a much lower priority.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="917" height="341" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/2-min.webp" alt="STM32 FreeRTOS timer selection" class="wp-image-1110" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/2-min.webp 917w, https://embeddedthere.com/wp-content/uploads/2023/05/2-min-300x112.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/2-min-768x286.webp 768w" sizes="auto, (max-width: 917px) 100vw, 917px"></figure>
+
+
+
+<p>After completing all the FreeRTOS stuff, we will configure two GPIO Pin <strong>PB4</strong> and <strong>PB5</strong> as output to demonstrate the FreeRTOS tasks.</p><!-- End Ezoic - gen_incontent_8 - incontent_8 --><span id="ezoic-pub-ad-placeholder-918" data-method="placement-service"></span><span data-ez-ph-id="918"></span><!-- Ezoic - gen_incontent_8 - incontent_8 -->
+
+
+
+<figure class="wp-block-image size-full is-resized"><img loading="lazy" decoding="async" width="580" height="478" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/6-min.webp" alt="stm32Cube IDE pin configuration" class="wp-image-1111" style="width:580px;height:478px" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/6-min.webp 580w, https://embeddedthere.com/wp-content/uploads/2023/05/6-min-300x247.webp 300w" sizes="auto, (max-width: 580px) 100vw, 580px"></figure>
+
+
+
+<p>Finally, save the project and generate the code as all the configurations are completed.</p>
+
+
+
+<h2 class="wp-block-heading"><span class="ez-toc-section" id="Project_Code_and_Description"></span>Project Code and Description<span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>To illustrate the concepts of FreeRTOS so far, let’s implement a simple example project using two tasks created earlier in STM32Cube IDE&nbsp; for the STM32 Nucleo board. This example will demonstrate the creation of a task that blinks LEDs at regular intervals. We will provide the necessary code snippets along with detailed explanations to help you understand the implementation.</p>
+
+
+
+<p>After finishing the code generation, before the main function, you should see the two threads being defined where we give each thread a name, priority, and stack size which are autogenerated by the STM32Cube IDE.</p><!-- End Ezoic - gen_incontent_9 - incontent_9 --><span id="ezoic-pub-ad-placeholder-919" data-method="placement-service"></span><span data-ez-ph-id="919"></span><!-- Ezoic - gen_incontent_9 - incontent_9 -->
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="c" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/* Definitions for task_1 */
+osThreadId_t task_1Handle;
+const osThreadAttr_t task_1_attributes = {
+  .name = "task_1",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for task_2 */
+osThreadId_t task_2Handle;
+const osThreadAttr_t task_2_attributes = {
+  .name = "task_2",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityBelowNormal,
+};</pre>
+
+
+
+<p>After that, you can see CubeIDE automatically defines the entry functions for us as task_1_function and task_2_function. Entry functions are the functions where we will write our code in an infinite loop.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="c" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">void task_1_function(void *argument);
+void task_2_function(void *argument);</pre>
+
+
+
+<p>In the main function, you should see kernel will initialize by using <strong>osKernelInitialize </strong>function.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="c" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/* Init scheduler */
+  osKernelInitialize();</pre>
+
+
+
+<p>After initializing the kernel if we scroll down, we will see that our entry functions are passed to <strong>osThreadNew </strong>function with the attributes.</p><!-- End Ezoic - gen_incontent_10 - incontent_10 --><span id="ezoic-pub-ad-placeholder-920" data-method="placement-service"></span><span data-ez-ph-id="920"></span><!-- Ezoic - gen_incontent_10 - incontent_10 -->
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="c" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/* Create the thread(s) */
+  /* creation of task_1 */
+  task_1Handle = osThreadNew(task_1_function, NULL, &amp;task_1_attributes);
+
+  /* creation of task_2 */
+  task_2Handle = osThreadNew(task_2_function, NULL, &amp;task_2_attributes);</pre>
+
+
+
+<p>Finally our FreeRTOS scheduler will start by calling the <strong>osKernelStart </strong>function. At this point, FreeRTOS take control of the system, and the <strong>osKernelStart</strong> function never exit. After the <strong>osKernelStart </strong>function, you don’t want to write any code past it including in the while(1) loop.</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="c" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/* Start scheduler */
+  osKernelStart();</pre>
+
+
+
+<p>After the main function scroll down and find our two entry functions called <strong>task_1_function </strong>and <strong>task_2_function </strong>where we write our LED blinking code. The code is very simple, we just blink the two LEDs in the <strong>for loop</strong> using a 500ms delay. We use <strong>osDelay</strong> function instead of <strong>HAL_Delay </strong>because <strong>osDelay </strong>is a non-blocking CMSIS RTOS&nbsp; function. <strong>osDelay </strong>allows the schedular to run the other tasks while we wait for the current task.</p>
+
+
+
+<p><strong>Please Note</strong> that entry functions are not return anything and they are running a forever loop unless the thread is terminated.&nbsp;</p><!-- End Ezoic - gen_incontent_11 - incontent_11 --><span id="ezoic-pub-ad-placeholder-921" data-method="placement-service"></span><span data-ez-ph-id="921"></span><!-- Ezoic - gen_incontent_11 - incontent_11 -->
+
+
+
+<h4 class="wp-block-heading">Task 1 entry function</h4>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="c" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/* USER CODE END Header_task_1_function */
+void task_1_function(void *argument)
+{
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_4);
+        osDelay(500);
+  }
+  /* USER CODE END 5 */
+}
+</pre>
+
+
+
+<h4 class="wp-block-heading">Task 2 entry function</h4>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="c" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/* USER CODE END Header_task_2_function */
+void task_2_function(void *argument)
+{
+  /* USER CODE BEGIN task_2_function */
+  /* Infinite loop */
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5);
+    osDelay(250);
+  }
+  /* USER CODE END task_2_function */
+}
+</pre>
+
+
+
+<h2 class="wp-block-heading"><span class="ez-toc-section" id="Testing_and_Deployment"></span><strong>Testing and Deployment</strong><span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>Once the code is uploaded to the microcontroller, you should see that the two LEDs are blink at the same frequency because at first, <strong>task_1 </strong>LED is <strong>ON</strong> and it goes to sleep for <strong>500 milliseconds</strong> while scheduler executes the <strong>task_2 </strong>entry function and it will turn <strong>ON</strong> the <strong>task_2 </strong>&nbsp;LED at the same time and go to sleep to <strong>500 milliseconds</strong>. After <strong>500 milliseconds</strong> both LEDs will be turned <strong>OFF</strong> at the same time. In this pattern, the tasks are switched one after another while the higher priority task will execute first then the lower one.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="381" height="216" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/lv_0_20230521195506_AdobeExpress-1-min.gif" alt="" class="wp-image-1121"></figure>
+
+
+
+<p>If you connect a <strong>Oscilloscope</strong> to <strong>PB4</strong> and <strong>PB5</strong> pin of <strong>STM32 Nucleo board</strong> respect to ground, you will see the same webform for both the pins because both the <strong>task</strong> will run at the same time. Remember, we toggle the <strong>PB4</strong> pin in our <strong>task_1</strong> and <strong>PB5</strong> pin in <strong>task_2</strong> with 500 millisecond delay. </p>
+
+
+
+<figure class="wp-block-image size-medium is-resized"><img loading="lazy" decoding="async" width="300" height="270" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/IMG_20230526_121346-300x270.webp" alt="STM32 FreeRTOS oscilloscope example" class="wp-image-1192" style="width:368px;height:330px" srcset="https://embeddedthere.com/wp-content/uploads/2023/05/IMG_20230526_121346-300x270.webp 300w, https://embeddedthere.com/wp-content/uploads/2023/05/IMG_20230526_121346.webp 700w" sizes="auto, (max-width: 300px) 100vw, 300px"></figure>
+
+
+
+<h3 class="wp-block-heading"><span class="ez-toc-section" id="Full_Source_Code"></span>Full Source Code<span class="ez-toc-section-end"></span></h3>
+
+
+
+<p>main.c file</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="c" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/* USER CODE END Header */
+/* Includes */
+#include "main.h"
+#include "cmsis_os.h"
+
+/* Private variables */
+ UART_HandleTypeDef huart2;
+
+/* Definitions for task_1 */
+osThreadId_t task_1Handle;
+const osThreadAttr_t task_1_attributes = {
+  .name = "task_1",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for task_2 */
+osThreadId_t task_2Handle;
+const osThreadAttr_t task_2_attributes = {
+  .name = "task_2",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityBelowNormal,
+};
+
+/* Private function prototypes */
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+void task_1_function(void *argument);
+void task_2_function(void *argument);
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+
+  /* Init scheduler */
+  osKernelInitialize();
+
+  /* Create the thread(s) */
+  /* creation of task_1 */
+  task_1Handle = osThreadNew(task_1_function, NULL, &amp;task_1_attributes);
+
+  /* creation of task_2 */
+  task_2Handle = osThreadNew(task_2_function, NULL, &amp;task_2_attributes);
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+  }
+  /* USER CODE END 3 */
+}
+
+/* USER CODE BEGIN Header_task_1_function */
+/**
+  * @brief  Function implementing the task_1 thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+/* USER CODE END Header_task_1_function */
+void task_1_function(void *argument)
+{
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_4);
+        osDelay(500);
+  }
+  /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_task_2_function */
+/**
+* @brief Function implementing the task_2 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_task_2_function */
+void task_2_function(void *argument)
+{
+  /* USER CODE BEGIN task_2_function */
+  /* Infinite loop */
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5);
+        osDelay(250);
+  }
+  /* USER CODE END task_2_function */
+}
+</pre>
+
+
+
+<p><strong>Please Note:</strong> Certain portions of the code, specifically those automatically generated by STM32CubeIDE, have been omitted.</p><!-- End Ezoic - gen_incontent_12 - incontent_12 --><span id="ezoic-pub-ad-placeholder-922" data-method="placement-service"></span><span data-ez-ph-id="922"></span><!-- Ezoic - gen_incontent_12 - incontent_12 -->
+
+
+
+<h2 class="wp-block-heading"><span class="ez-toc-section" id="Video_Tutorial"></span><strong>Video Tutorial</strong><span class="ez-toc-section-end"></span></h2>
+
+
+
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<iframe loading="lazy" title="Getting Started with FreeRTOS in STM32" width="640" height="360" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/w4UwA55ngqY.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+</div></figure>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1099 -->
+
+<script type="application/ld+json">
+    {"@context":"http:\/\/schema.org\/","@type":"BlogPosting","name":"Getting Started with FreeRTOS in STM32: Example Code included","url":"https:\/\/embeddedthere.com\/getting-started-with-freertos-in-stm32-example-code-included\/","articleBody":"If you're venturing into the world of embedded systems development, you'll soon realize the importance of an efficient real-time operating system (RTOS) to manage tasks and resources effectively. One popular choice for RTOS implementation is FreeRTOS, a powerful and versatile open-source solution. In this tutorial, we'll explore the fundamentals of RTOS and learn how to get started with FreeRTOS in STM32 Microcontroller. Along the way, we'll also provide example code snippets to help you grasp the concepts more easily.\n\n\n\nSTM32 FreeRTOS tutorial series:\n\n\n\n\nSTM32 FreeRTOS Task Scheduling Tutorial with Example Code\n\n\n\n\nOur other STM32-related tutorials are:\n\n\n\n\nHow to interface STM32 with RS485 (Modbus) sensors\n\n\n\nSTM32 ADC Interfacing with HAL code example\n\n\n\nInterfacing STM32 with I2C LCD : HAL example code included\n\n\n\nStm32 Bluetooth module HC-05 interfacing with HAL code example\n\n\n\nHow to create a project in stm32CubeMX for Keil uvision Ide\n\n\n\nHow to create stm32 project in stm32cubeide with example code\n\n\n\n\nWhat is RTOS?\n\n\n\nRTOS stands for Real-Time Operating System. It is a specialized operating system designed to handle real-time applications that have specific timing and responsiveness requirements. Unlike general-purpose operating systems (OS), an RTOS provides deterministic behavior, ensuring that tasks are executed within specific time constraints.\n\n\n\nIn an RTOS, tasks are scheduled and executed based on their priority and time requirements. It ensures that critical tasks receive the necessary processing time and resources to meet their timing deadlines. Real-time operating systems are commonly used in embedded systems, such as microcontrollers, where precise timing and responsiveness are crucial.\n\n\n\n\n\n\n\nHow RTOS works?\n\n\n\nLet's consider a real-world example to understand how an RTOS works. Imagine you have an autonomous robot that performs various tasks in a warehouse, such as picking up items and placing them in specific locations.\n\n\n\nThe robot's tasks include:\n\n\n\n\nSensor Reading: The robot needs to continuously read data from its sensors, such as distance sensors and cameras, to detect obstacles, recognize objects, and navigate the environment.\n\n\n\nPath Planning: Based on the sensor data, the robot needs to determine the optimal path to navigate through the warehouse, avoiding obstacles and reaching the desired locations efficiently.\n\n\n\nObject Detection: The robot needs to analyze the camera data to identify and classify objects in its surroundings, distinguishing between different items to be picked up or avoided.\n\n\n\nMotion Control: Once the path is planned and objects are detected, the robot needs to control its motors and actuators to move smoothly and precisely, following the planned trajectory and performing tasks like grasping objects.\n\n\n\n\nIn this scenario, an RTOS comes into play to manage the execution of these tasks efficiently and in a timely manner. Here's how it works:\n\n\n\n\nTask Scheduling: The RTOS scheduler assigns priorities to each task based on their importance and time constraints. For example, the sensor reading task may have a higher priority to ensure real-time obstacle detection, while path planning can have a lower priority.\n\n\n\nContext Switching: The RTOS handles context switching, which means it can pause the execution of one task and switch to another task seamlessly. This allows the robot to respond quickly to changing situations and events.\n\n\n\nResource Management: The RTOS manages the sharing of resources among tasks. For instance, if multiple tasks need to access the robot's motors simultaneously, the RTOS ensures that they can do so without conflicts by implementing synchronization mechanisms like semaphores or mutexes. We will discuss semaphores and mutexes in the next tutorials.\n\n\n\nTimeliness: The RTOS guarantees that critical tasks are executed within their specified deadlines. For example, the motion control task needs to execute with precise timing to ensure the robot moves accurately and avoids collisions.\n\n\n\n\nBy utilizing an RTOS, the robot can effectively handle multiple tasks concurrently, respond to sensor inputs in real time, and achieve reliable and deterministic behavior. The RTOS ensures that each task receives the necessary processing time and resources to fulfill its requirements, ultimately enabling the smooth and efficient operation of the autonomous robot in the warehouse environment.\n\n\n\nDifference between super loop architecture and RTOS in Microcontroller\n\n\n\nWhen it comes to designing microcontroller-based systems, there are two common approaches for handling tasks and resources: super loop architecture and Real-Time Operating System (RTOS). Both have their advantages and drawbacks, and the choice between them depends on the specific application requirements and constraints.\n\n\n\nSuper loop architecture, also known as the main loop architecture, is a simple and straightforward approach for handling tasks in microcontroller-based systems. In this architecture, the main program loop repeatedly executes a sequence of tasks, each of which takes a fixed amount of time to complete. The tasks are scheduled sequentially, and the order of execution is typically determined by the order in which they appear in the main loop.\n\n\n\nRTOS, on the other hand, is a more advanced and flexible approach for handling tasks and resources in microcontroller-based systems. In RTOS, the tasks are managed by a kernel, which is responsible for scheduling, context switching, and resource allocation. Each task has its own priority and execution time, and the kernel ensures that high-priority tasks are executed before low-priority ones.\n\n\n\n\n\n\n\nWhat is FreeRTOS?\n\n\n\nFreeRTOS, which stands for Free Real-Time Operating System, is an open-source real-time operating system kernel designed specifically for embedded systems. It provides a compact and efficient solution for running multiple tasks concurrently while meeting strict timing requirements.\n\n\n\nDeveloped by Richard Barry in 2003, FreeRTOS offers a preemptive multitasking environment, where tasks are scheduled and executed based on their priorities. It allows developers to break down complex applications into smaller tasks, each with its own priority and execution requirements.\n\n\n\nFreeRTOS supports a wide range of microcontrollers and microprocessors, including the popular STM32 family. It offers features such as task management, inter-task communication, synchronization mechanisms, timers, and memory management.\n\n\n\nTasks in FreeRTOS are created and managed using APIs provided by the kernel. Each task has its own stack and can perform specific operations independently. The kernel scheduler determines which task should run based on their priorities and any synchronization or timing constraints.\n\n\n\nFreeRTOS also provides synchronization mechanisms like semaphores, mutexes, and queues, which allow tasks to communicate and share resources safely. This ensures coordinated execution and avoids conflicts between tasks.\n\n\n\nOne of the key advantages of FreeRTOS is its small footprint. It has a minimal memory overhead, making it suitable for resource-constrained embedded systems. Additionally, it is well-documented, actively maintained, and has a large user community, providing ample resources and support for developers.\n\n\n\n\n\n\n\nTo read more about FreeRTOS, you can visit their official website.\n\n\n\nHow to setup FreeRTOS in STM32 Microcontroller\n\n\n\nIn this section of the tutorial, we will show how to set up the FreeRTOS project in the STM32 NUCLEO-F446RE Development board using STM32Cube IDE and build a real-world example project by using two LEDs that will blink at different speeds according to task priority. We can use any STM32 microcontroller for this project, just set up the project according to your MCU in STM32CubeIDE.\n\n\n\n\n\n\n\nFreeRTOS vs. CMSIS-RTOS\n\n\n\nBefore setup the FreeRTOS in STM32, we need to understand the integration of FreeRTOS within STM32CubeIDE is crucial. Although FreeRTOS serves as a foundational software framework, handling task switching and scheduling, it's noteworthy that we won't be directly invoking FreeRTOS functions.\n\n\n\nTo enhance code portability across different ARM processors, ARM has developed the CMSIS-RTOS library. This library enables us to make function calls to the underlying RTOS, streamlining the process and ensuring compatibility with a wide range of ARM processors. This image describes how ARM\u2019s CMSIS libraries interact with third-party software:\n\n\n\n\n\n\n\nFreeRTOS is our RTOS Kernel. We will be making calls to CMSIS-RTOS (version 2) in order to control the underlying FreeRTOS.\n\n\n\nRequired Hardware for the project\n\n\n\nComponent NameQuantityPurchase LinkSTM32 Nucleo Dev. Board1AmazonLED2AmazonResistor (330 ohm)2AmazonJumper Wire Pack1AmazonBreadboard1AmazonUSB Mini-B cable1Amazon\n\n\n\nFor troubleshooting, some extremely useful test equipment\n\n\n\nEquipment NamePurchase LinkBest&nbsp;Oscilloscope for ProfessionalsAmazonBest&nbsp;Oscilloscope for Beginners and StudentsAmazonLogic AnalyzerAmazonBest Budget MultimeterAmazonAdjustable&nbsp;Bench Power SupplyAmazon\n\n\n\nAffiliate Disclosure: When you click on links to make a purchase, this can result in this website earning a commission. Affiliate programs and affiliations include, but are not limited to Amazon.com\n\n\n\nCircuit Diagram\n\n\n\n\n\n\n\nCircuit Connections\n\n\n\nSTM32 Nucleo Dev. BoardLED PinGPIO B Pin 4 (PB4 \/ D5)task_1 LED (Anode pin)GPIO B Pin 5 (PB5 \/ D4)task_2 LED (cathode pin)Groundtask_1 and task_2 LED Cathode pin\n\n\n\nCreating a FreeRTOS project in STM32CubeIDE\n\n\n\nFor project creation in Stm32Cube IDE, please visit your previous tutorial. The link is given below:\n\n\n\n\nHow to create stm32 project in stm32cubeide with example code\n\n\n\n\nAfter creating the project in Stm32CubeIDE, it will open the default page for you called Device Configuration Tools. In&nbsp; Device Configuration Tools go to Categories &gt; Middleware &gt; FREERTOS. Under the Mode Selection Dropdown menu, select Interface to CMSIS_V2. Then select the Config parameters tab and go to Kernel settings and Enable USE_PREEMPTION. We Enable the Preemption because We will use Preemption based scheduling in which higher priority tasks can take control from the lower ones.\n\n\n\n\n\n\n\nAfter that, go to the Tasks and Queues tab and Here you will see the predefined task called defaultTask, we will rename the task as task_1. You can also change the Priority, Stack Size, and Entry Function parameters of the task. We will select Priority as osPriorityNornal, Stack Size (Words) to 128.\n\n\n\n\n\n\n\nAfter editing the first tasks, we will create another task called task_2 and we change the Priority of this task to osPriorityBelowNormal this means task_1 will have a higher priority than the task_2 because we selected task_1 priority as osPriorityNornal.\n\n\n\n\n\n\n\nAfter configuring the tasks, go to System Core &gt; Sys and Select the Timebase Source to TIM6 (Timer 6) because the SysTick timer is a specialized feature found in most ARM processors, serving primarily for operating system tasks. In the context of STM32 microcontrollers, the default configuration sets SysTick to generate an interrupt every 1 millisecond.\n\n\n\nWhen using the STM32 HAL (Hardware Abstraction Layer), SysTick is automatically utilized for functions like HAL_Delay() and HAL_GetTick(). Consequently, the STM32 HAL framework assigns a high priority to SysTick. However, FreeRTOS needs SysTick for its scheduler as a result, it requires SysTick to be a much lower priority.\n\n\n\n\n\n\n\nAfter completing all the FreeRTOS stuff, we will configure two GPIO Pin PB4 and PB5 as output to demonstrate the FreeRTOS tasks.\n\n\n\n\n\n\n\nFinally, save the project and generate the code as all the configurations are completed.\n\n\n\nProject Code and Description\n\n\n\nTo illustrate the concepts of FreeRTOS so far, let's implement a simple example project using two tasks created earlier in STM32Cube IDE&nbsp; for the STM32 Nucleo board. This example will demonstrate the creation of a task that blinks LEDs at regular intervals. We will provide the necessary code snippets along with detailed explanations to help you understand the implementation.\n\n\n\nAfter finishing the code generation, before the main function, you should see the two threads being defined where we give each thread a name, priority, and stack size which are autogenerated by the STM32Cube IDE.\n\n\n\n\/* Definitions for task_1 *\/\nosThreadId_t task_1Handle;\nconst osThreadAttr_t task_1_attributes = {\n  .name = \"task_1\",\n  .stack_size = 128 * 4,\n  .priority = (osPriority_t) osPriorityNormal,\n};\n\/* Definitions for task_2 *\/\nosThreadId_t task_2Handle;\nconst osThreadAttr_t task_2_attributes = {\n  .name = \"task_2\",\n  .stack_size = 128 * 4,\n  .priority = (osPriority_t) osPriorityBelowNormal,\n};\n\n\n\nAfter that, you can see CubeIDE automatically defines the entry functions for us as task_1_function and task_2_function. Entry functions are the functions where we will write our code in an infinite loop.\n\n\n\nvoid task_1_function(void *argument);\nvoid task_2_function(void *argument);\n\n\n\nIn the main function, you should see kernel will initialize by using osKernelInitialize function.\n\n\n\n\/* Init scheduler *\/\n  osKernelInitialize();\n\n\n\nAfter initializing the kernel if we scroll down, we will see that our entry functions are passed to osThreadNew function with the attributes.\n\n\n\n\/* Create the thread(s) *\/\n  \/* creation of task_1 *\/\n  task_1Handle = osThreadNew(task_1_function, NULL, &amp;task_1_attributes);\n\n  \/* creation of task_2 *\/\n  task_2Handle = osThreadNew(task_2_function, NULL, &amp;task_2_attributes);\n\n\n\nFinally our FreeRTOS scheduler will start by calling the osKernelStart function. At this point, FreeRTOS take control of the system, and the osKernelStart function never exit. After the osKernelStart function, you don\u2019t want to write any code past it including in the while(1) loop.\n\n\n\n\/* Start scheduler *\/\n  osKernelStart();\n\n\n\nAfter the main function scroll down and find our two entry functions called task_1_function and task_2_function where we write our LED blinking code. The code is very simple, we just blink the two LEDs in the for loop using a 500ms delay. We use osDelay function instead of HAL_Delay because osDelay is a non-blocking CMSIS RTOS&nbsp; function. osDelay allows the schedular to run the other tasks while we wait for the current task.\n\n\n\nPlease Note that entry functions are not return anything and they are running a forever loop unless the thread is terminated.&nbsp;\n\n\n\nTask 1 entry function\n\n\n\n\/* USER CODE END Header_task_1_function *\/\nvoid task_1_function(void *argument)\n{\n  \/* USER CODE BEGIN 5 *\/\n  \/* Infinite loop *\/\n  for(;;)\n  {\n\tHAL_GPIO_TogglePin(GPIOB, GPIO_PIN_4);\n        osDelay(500);\n  }\n  \/* USER CODE END 5 *\/\n}\n\n\n\n\nTask 2 entry function\n\n\n\n\/* USER CODE END Header_task_2_function *\/\nvoid task_2_function(void *argument)\n{\n  \/* USER CODE BEGIN task_2_function *\/\n  \/* Infinite loop *\/\n  for(;;)\n  {\n\tHAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5);\n    osDelay(250);\n  }\n  \/* USER CODE END task_2_function *\/\n}\n\n\n\n\nTesting and Deployment\n\n\n\nOnce the code is uploaded to the microcontroller, you should see that the two LEDs are blink at the same frequency because at first, task_1 LED is ON and it goes to sleep for 500 milliseconds while scheduler executes the task_2 entry function and it will turn ON the task_2 &nbsp;LED at the same time and go to sleep to 500 milliseconds. After 500 milliseconds both LEDs will be turned OFF at the same time. In this pattern, the tasks are switched one after another while the higher priority task will execute first then the lower one.\n\n\n\n\n\n\n\nIf you connect a Oscilloscope to PB4 and PB5 pin of STM32 Nucleo board respect to ground, you will see the same webform for both the pins because both the task will run at the same time. Remember, we toggle the PB4 pin in our task_1 and PB5 pin in task_2 with 500 millisecond delay. \n\n\n\n\n\n\n\nFull Source Code\n\n\n\nmain.c file\n\n\n\n\/* USER CODE END Header *\/\n\/* Includes *\/\n#include \"main.h\"\n#include \"cmsis_os.h\"\n\n\/* Private variables *\/\n UART_HandleTypeDef huart2;\n\n\/* Definitions for task_1 *\/\nosThreadId_t task_1Handle;\nconst osThreadAttr_t task_1_attributes = {\n  .name = \"task_1\",\n  .stack_size = 128 * 4,\n  .priority = (osPriority_t) osPriorityNormal,\n};\n\/* Definitions for task_2 *\/\nosThreadId_t task_2Handle;\nconst osThreadAttr_t task_2_attributes = {\n  .name = \"task_2\",\n  .stack_size = 128 * 4,\n  .priority = (osPriority_t) osPriorityBelowNormal,\n};\n\n\/* Private function prototypes *\/\nvoid SystemClock_Config(void);\nstatic void MX_GPIO_Init(void);\nstatic void MX_USART2_UART_Init(void);\nvoid task_1_function(void *argument);\nvoid task_2_function(void *argument);\n\n\/**\n  * @brief  The application entry point.\n  * @retval int\n  *\/\nint main(void)\n{\n  \/* USER CODE BEGIN 1 *\/\n\n  \/* USER CODE END 1 *\/\n\n  \/* MCU Configuration*\/\n\n  \/* Reset of all peripherals, Initializes the Flash interface and the Systick. *\/\n  HAL_Init();\n\n  \/* Configure the system clock *\/\n  SystemClock_Config();\n\n  \/* Initialize all configured peripherals *\/\n  MX_GPIO_Init();\n  MX_USART2_UART_Init();\n\n  \/* Init scheduler *\/\n  osKernelInitialize();\n\n  \/* Create the thread(s) *\/\n  \/* creation of task_1 *\/\n  task_1Handle = osThreadNew(task_1_function, NULL, &amp;task_1_attributes);\n\n  \/* creation of task_2 *\/\n  task_2Handle = osThreadNew(task_2_function, NULL, &amp;task_2_attributes);\n\n  \/* Start scheduler *\/\n  osKernelStart();\n\n  \/* We should never get here as control is now taken by the scheduler *\/\n  \/* Infinite loop *\/\n  \/* USER CODE BEGIN WHILE *\/\n  while (1)\n  {\n    \/* USER CODE END WHILE *\/\n\n    \/* USER CODE BEGIN 3 *\/\n  }\n  \/* USER CODE END 3 *\/\n}\n\n\/* USER CODE BEGIN Header_task_1_function *\/\n\/**\n  * @brief  Function implementing the task_1 thread.\n  * @param  argument: Not used\n  * @retval None\n  *\/\n\/* USER CODE END Header_task_1_function *\/\nvoid task_1_function(void *argument)\n{\n  \/* USER CODE BEGIN 5 *\/\n  \/* Infinite loop *\/\n  for(;;)\n  {\n\tHAL_GPIO_TogglePin(GPIOB, GPIO_PIN_4);\n        osDelay(500);\n  }\n  \/* USER CODE END 5 *\/\n}\n\n\/* USER CODE BEGIN Header_task_2_function *\/\n\/**\n* @brief Function implementing the task_2 thread.\n* @param argument: Not used\n* @retval None\n*\/\n\/* USER CODE END Header_task_2_function *\/\nvoid task_2_function(void *argument)\n{\n  \/* USER CODE BEGIN task_2_function *\/\n  \/* Infinite loop *\/\n  for(;;)\n  {\n\tHAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5);\n        osDelay(250);\n  }\n  \/* USER CODE END task_2_function *\/\n}\n\n\n\n\nPlease Note: Certain portions of the code, specifically those automatically generated by STM32CubeIDE, have been omitted.\n\n\n\nVideo Tutorial\n\n\n\n\nhttps:\/\/youtu.be\/w4UwA55ngqY","headline":"Getting Started with FreeRTOS in STM32: Example Code included","author":{"@type":"Person","name":"Mahamudul Hasan","url":"https:\/\/embeddedthere.com"},"datePublished":"2023-05-21","mainEntityOfPage":"True","dateModified":"February 3, 2024","image":{"@type":"ImageObject","url":"https:\/\/embeddedthere.com\/wp-content\/uploads\/2023\/05\/thumbnil_freertos_1-min-1024x576.webp","height":360,"width":640},"publisher":{"@context":"http:\/\/schema.org\/","@type":"Organization","name":"Embedded There","logo":{"@type":"ImageObject","url":"https:\/\/embeddedthere.com\/wp-content\/uploads\/2023\/03\/2EMBEDDED-1-300x150.png","height":600,"width":60}}}
+</script>
+		<article class="author-card">
+			<a href="https://embeddedthere.com/author/embeddedthere/" alt="link to Mahamudul Hasan author page">
+				<div class="avatar-container" style="background-image: url(&#39;https://embeddedthere.com/wp-content/uploads/2022/09/67250751_2394731240565344_5679082629542969344_n-300x300.jpg&#39;)">
+				</div>
+			</a>
+			<div class="author-info">
+				<header>
+					<p class="h3"><a href="https://embeddedthere.com/author/embeddedthere/">Mahamudul Hasan</a></p>
+				</header>
+				<p>I hold a B.Sc degree in Electrical &amp; Electronic Engineering from Daffodil International University, Bangladesh. I am a Printed Circuit Board (PCB) designer and Microcontroller programmer with an avid interest in Embedded System Design and IoT. As an Engineer, I love taking challenges and love being part of the solution.
+My Linkedin Profile Link: https://linkedin.com/in/mheee</p>
+			</div>
+		</article>
+					<h3 class="h2">Recent Posts</h3>
+			<div class="recent-articles-container">
+					<article class="article-card">
+				<a href="https://embeddedthere.com/stm32-ethernet-communication-tutorial-using-w5500-module/" rel="nofollow"><div class="image-container" style="background-image: url(&#39;https://embeddedthere.com/wp-content/uploads/2025/04/22ChatGPT-Image-Apr-28-2025-07_17_28-PM.webp&#39;)"></div><span class="sr-only">link to STM32 Ethernet Communication Tutorial using Wiznet W5500 Module</span></a>
+                
+				<div class="copy-container">
+					<header>
+						<p><a href="https://embeddedthere.com/stm32-ethernet-communication-tutorial-using-w5500-module/">STM32 Ethernet Communication Tutorial using Wiznet W5500 Module</a></p>
+					</header>
+					<div class="excerpt">
+						<p>This is a comprehensive guide on Ethernet communication using Wiznet W5500 module. We will demonstrate how to use Wiznet W5500 IC to send messages to a computer as well as receive messages from the...</p><div class="button-container"><a rel="nofollow" class="button reverse" href="https://embeddedthere.com/stm32-ethernet-communication-tutorial-using-w5500-module/" aria-label="Continue Reading: STM32 Ethernet Communication Tutorial using Wiznet W5500 Module">Continue Reading</a></div>					</div>
+					<!-- <div class="button-container">
+						<a rel="nofollow" class="button reverse" href=""></a>
+					</div> -->
+				</div>
+			</article>
+					<article class="article-card">
+				<a href="https://embeddedthere.com/arduino-adc-tutorial-with-example-code/" rel="nofollow"><div class="image-container" style="background-image: url(&#39;https://embeddedthere.com/wp-content/uploads/2025/04/Arduino-ADC-tutorial-with-example-code.webp&#39;)"></div><span class="sr-only">link to Arduino ADC Tutorial with Example Code</span></a>
+                
+				<div class="copy-container">
+					<header>
+						<p><a href="https://embeddedthere.com/arduino-adc-tutorial-with-example-code/">Arduino ADC Tutorial with Example Code</a></p>
+					</header>
+					<div class="excerpt">
+						<p>This Arduino ADC tutorial provides a clear and beginner-friendly explanation of how to read analog signals using the analogRead() function. It covers the basics of Analog-to-Digital Conversion,...</p><div class="button-container"><a rel="nofollow" class="button reverse" href="https://embeddedthere.com/arduino-adc-tutorial-with-example-code/" aria-label="Continue Reading: Arduino ADC Tutorial with Example Code">Continue Reading</a></div>					</div>
+					<!-- <div class="button-container">
+						<a rel="nofollow" class="button reverse" href=""></a>
+					</div> -->
+				</div>
+			</article>
+					</div>
+				</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<aside id="secondary" class="widget-area">
+		<div class="about-wrapper">
+		<h2 class="widget-title">About Us</h2>		<p class="about-copy">Welcome to EmbeddedThere — an educational platform created by a passionate team of engineers who love building and sharing knowledge in embedded systems, electronics, IoT, and robotics.<br>
+<br>
+Our goal is simple: to make complex topics easy to understand through hands-on tutorials, real-world projects, and clear explanations. Whether you're a student, hobbyist, or professional, you'll find practical resources here to help you learn, experiment, and grow your skills.</p>
+			</div>
+		<div class="legal-info-container">
+	<h2 class="widget-title">LEGAL INFORMATION</h2>		<p>This site is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. We are compensated for referring traffic and business to Amazon and other companies linked to on this site.</p>
+	</div>
+		<div class="sidebar-ad">
+		<p><br>
+<!-- sidebar_vertical --><br>
+<br>
+</p>
+	</div>
+	</aside><!-- #secondary -->
+
+
+	</div><!-- #content -->
+
+	<footer id="colophon" class="site-footer">
+
+					
+							<div class="inner-wrap footer-option-1">
+					<div class="menu-footer-container"><ul id="footer-menu" class="inner-wrap"><li id="menu-item-119" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-119"><a href="https://embeddedthere.com/about-us/">About Us</a></li>
+<li id="menu-item-120" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-120"><a href="https://embeddedthere.com/ccpa/">CCPA</a></li>
+<li id="menu-item-122" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-122"><a href="https://embeddedthere.com/dmca/">DMCA</a></li>
+<li id="menu-item-123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a href="https://embeddedthere.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-125" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-125"><a href="https://embeddedthere.com/terms-of-use/">Terms of Use</a></li>
+<li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-121"><a href="https://embeddedthere.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-124" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-124"><a href="https://embeddedthere.com/sitemap/">Sitemap</a></li>
+</ul></div>
+					<div class="site-info">
+							© 2025 Copyright Embedded There					</div><!-- .site-info -->
+
+											<div class="footer-ad">
+							<p><br>
+<!-- footer_ads --><br>
+<br>
+</p>
+						</div>
+					
+			</div>
+				
+		
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/acabado\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/hooks.min.js.download" id="wp-hooks-js"></script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/i18n.min.js.download" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/index.js.download" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/embeddedthere.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/index(1).js.download" id="contact-form-7-js"></script>
+<script type="text/javascript" id="toc-front-js-extra">
+/* <![CDATA[ */
+var tocplus = {"visibility_show":"show","visibility_hide":"hide","width":"Auto"};
+/* ]]> */
+</script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/front.min.js.download" id="toc-front-js"></script>
+<script type="text/javascript" id="ez-toc-scroll-scriptjs-js-extra">
+/* <![CDATA[ */
+var eztoc_smooth_local = {"scroll_offset":"30","add_request_uri":"","add_self_reference_link":""};
+/* ]]> */
+</script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/smooth_scroll.min.js.download" id="ez-toc-scroll-scriptjs-js"></script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/js.cookie.min.js.download" id="ez-toc-js-cookie-js"></script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/jquery.sticky-kit.min.js.download" id="ez-toc-jquery-sticky-kit-js"></script>
+<script type="text/javascript" id="ez-toc-js-js-extra">
+/* <![CDATA[ */
+var ezTOC = {"smooth_scroll":"1","visibility_hide_by_default":"","scroll_offset":"30","fallbackIcon":"<span class=\"\"><span class=\"eztoc-hide\" style=\"display:none;\">Toggle<\/span><span class=\"ez-toc-icon-toggle-span\"><svg style=\"fill: #7a7a7a;color:#7a7a7a\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" class=\"list-377408\" width=\"20px\" height=\"20px\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M6 6H4v2h2V6zm14 0H8v2h12V6zM4 11h2v2H4v-2zm16 0H8v2h12v-2zM4 16h2v2H4v-2zm16 0H8v2h12v-2z\" fill=\"currentColor\"><\/path><\/svg><svg style=\"fill: #7a7a7a;color:#7a7a7a\" class=\"arrow-unsorted-368013\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"10px\" height=\"10px\" viewBox=\"0 0 24 24\" version=\"1.2\" baseProfile=\"tiny\"><path d=\"M18.2 9.3l-6.2-6.3-6.2 6.3c-.2.2-.3.4-.3.7s.1.5.3.7c.2.2.4.3.7.3h11c.3 0 .5-.1.7-.3.2-.2.3-.5.3-.7s-.1-.5-.3-.7zM5.8 14.7l6.2 6.3 6.2-6.3c.2-.2.3-.5.3-.7s-.1-.5-.3-.7c-.2-.2-.4-.3-.7-.3h-11c-.3 0-.5.1-.7.3-.2.2-.3.5-.3.7s.1.5.3.7z\"\/><\/svg><\/span><\/span>","chamomile_theme_is_on":""};
+/* ]]> */
+</script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/front.min(1).js.download" id="ez-toc-js-js"></script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/app.max.js.download" id="income-school-js-js"></script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/comment-reply.min.js.download" id="comment-reply-js" data-wp-strategy="async"></script>
+<script type="text/javascript" id="wpfront-scroll-top-js-extra">
+/* <![CDATA[ */
+var wpfront_scroll_top_data = {"data":{"css":"#wpfront-scroll-top-container{display:none;position:fixed;cursor:pointer;z-index:9999;opacity:0}#wpfront-scroll-top-container div.text-holder{padding:3px 10px;border-radius:3px;-webkit-border-radius:3px;-webkit-box-shadow:4px 4px 5px 0 rgba(50,50,50,.5);-moz-box-shadow:4px 4px 5px 0 rgba(50,50,50,.5);box-shadow:4px 4px 5px 0 rgba(50,50,50,.5)}#wpfront-scroll-top-container a{outline-style:none;box-shadow:none;text-decoration:none}#wpfront-scroll-top-container {right: 25px;bottom: 100px;}        #wpfront-scroll-top-container img {\n            width: auto;\n            height: auto;\n        }\n        ","html":"<div id=\"wpfront-scroll-top-container\"><img src=\"https:\/\/embeddedthere.com\/wp-content\/plugins\/wpfront-scroll-top\/images\/icons\/1.png\" alt=\"\" title=\"\" \/><\/div>","data":{"hide_iframe":false,"button_fade_duration":0,"auto_hide":false,"auto_hide_after":2,"scroll_offset":100,"button_opacity":0.9,"button_action":"top","button_action_element_selector":"","button_action_container_selector":"html, body","button_action_element_offset":0,"scroll_duration":500}}};
+/* ]]> */
+</script>
+<script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/wpfront-scroll-top.min.js.download" id="wpfront-scroll-top-js" async="async" defer="defer"></script>
+<script type="text/javascript" async="" defer="" src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/enlighterjs.min.js.download" id="enlighterjs-js"></script>
+<script type="text/javascript" id="enlighterjs-js-after">
+/* <![CDATA[ */
+!function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":4,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":true,"theme":"enlighter","language":"generic","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console);
+/* ]]> */
+</script>
+<div style="display: none"></div>
+
+<span id="ezoic-pub-ad-placeholder-100"></span><span data-ez-ph-id="100" style="max-width:100% !important;line-height:0px;padding:0;float:none !important;box-sizing:content-box;display:inline-block;min-width:0px;min-height:0px;"></span><script>!function(){function t(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=new Array(e);r<e;r++)n[r]=t[r];return n}!function(){function e(){return document.querySelector('ins[data-anchor-shown="true"][data-anchor-status="displayed"]')}function r(t){var e=t.querySelector("iframe");e&&requestAnimationFrame((function(){var r=parseFloat(getComputedStyle(e).height);isNaN(r)||t.style.setProperty("height","".concat(r+5,"px"),"important")}))}function n(t){t.style.setProperty("width","100%","important"),t.style.maxWidth="none"}function o(t){var e=t.querySelector("iframe");e&&(e.style.setProperty("display","block","important"),e.style.setProperty("margin","0 auto","important"))}function a(e){if(e){var a=new WeakSet;a.has(e)||(a.add(e),new MutationObserver((function(a){var i,u=function(e,r){var n="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!n){if(Array.isArray(e)||(n=function(e,r){if(e){if("string"==typeof e)return t(e,r);var n=Object.prototype.toString.call(e).slice(8,-1);return"Object"===n&&e.constructor&&(n=e.constructor.name),"Map"===n||"Set"===n?Array.from(e):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?t(e,r):void 0}}(e))||r&&e&&"number"==typeof e.length){n&&(e=n);var o=0,a=function(){};return{s:a,n:function(){return o>=e.length?{done:!0}:{done:!1,value:e[o++]}},e:function(t){throw t},f:a}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,u=!0,c=!1;return{s:function(){n=n.call(e)},n:function(){var t=n.next();return u=t.done,t},e:function(t){c=!0,i=t},f:function(){try{u||null==n.return||n.return()}finally{if(c)throw i}}}}(a);try{for(u.s();!(i=u.n()).done;)"style"===i.value.attributeName&&(r(e),n(e),o(e))}catch(t){u.e(t)}finally{u.f()}})).observe(e,{attributes:!0,attributeFilter:["style"]}))}}!function(){var t=e();if(t)return r(t),n(t),o(t),void a(t);var i=new MutationObserver((function(){var t=e();t&&(r(t),n(t),o(t),a(t),i.disconnect())}));i.observe(document.body,{attributes:!0,subtree:!0,childList:!0})}()}()}();</script>
+<script type="text/javascript" data-cfasync="false">!function(){var e=function(e,t){for(var r=0;r<t.length;r++){var n=t[r];if(0==n.complete||void 0!==n.readyState&&n.readyState<4){var o=n.getAttribute("src")||n.currentSrc;void 0!==n.readyState&&0==n.readyState?n.addEventListener("loadstart",(function(e){var t=e.currentTarget.getAttribute("src")||e.currentSrc;window.ezorqs(e,t)})):(o=n.getAttribute("src")||n.currentSrc,window.ezorqs(n,o)),n.addEventListener("load",(function(e){var t=e.currentTarget.getAttribute("src")||e.srcElement.currentSrc;window.ezorqe(e,t)})),n.addEventListener("loadeddata",(function(e){var t=e.currentTarget.getAttribute("src")||e.srcElement.currentSrc;window.ezorqe(e,t)})),n.addEventListener("error",(function(e){var t=e.currentTarget.getAttribute("src")||e.srcElement.currentSrc;window.ezorqe(e,t)}))}}};function t(e){for(var t=0;t<document.styleSheets.length;t++)if(document.styleSheets[t].href==e)return!0;return!1}__ez_addAllListeners=function(){e(0,document.querySelectorAll("img")),e(0,document.querySelectorAll("video")),e(0,document.querySelectorAll("audio")),function(e){for(var r=0;r<e.length;r++){var n=e[r];if(("preload"==n.getAttribute("rel")||"stylesheet"==n.getAttribute("rel"))&&null!=n.getAttribute("href")&&t(n.getAttribute("href"))){window.ezorqs(n,n.getAttribute("href"));var o=document.createElement("img");o.onerror=function(e){void 0!==e.path&&void 0!==e.path[0].currentSrc?window.ezorqe(n,e.path[0].currentSrc):void 0!==e.srcElement&&void 0!==e.srcElement.href&&window.ezorqe(n,e.srcElement.href)},o.src=n.getAttribute("href")}}}(document.querySelectorAll("link")),void 0!==window.__ez.ssaf&&window.__ez.ssaf.indexOf(16)>-1&&void 0!==window.__ez.sshsdef&&!1===window.__ez.sshsdef&&Element.prototype.addEventListener&&("function"==typeof window.onload&&(window.addEventListener("load",window.onload),window.onload=null),"function"==typeof document.onload&&(document.addEventListener.addEventListener("load",document.onload),document.onload=null))},__ez.queue.addFunc("__ez_addAllListeners","__ez_addAllListeners",null,!1,["/detroitchicago/tulsa.js"],!0,!0,!0,!0)}();</script>
+<script type="text/javascript" style="display:none;" async="">if (typeof window.__ez !== 'undefined' && window.__ez?.queue?.addFileOnce) {window.__ez.queue.addFileOnce('identity', 'https://go.ezodn.com/detroitchicago/indy.js?cb=37&gcb=0', true, [], true, false, false, true);} </script><script data-cfasync="false">function _emitEzConsentEvent(){var customEvent=new CustomEvent("ezConsentEvent",{detail:{ezTcfConsent:window.ezTcfConsent},bubbles:true,cancelable:true,});document.dispatchEvent(customEvent);}
+(function(window,document){function _setAllEzConsentTrue(){window.ezTcfConsent.loaded=true;window.ezTcfConsent.store_info=true;window.ezTcfConsent.develop_and_improve_services=true;window.ezTcfConsent.measure_ad_performance=true;window.ezTcfConsent.measure_content_performance=true;window.ezTcfConsent.select_basic_ads=true;window.ezTcfConsent.create_ad_profile=true;window.ezTcfConsent.select_personalized_ads=true;window.ezTcfConsent.create_content_profile=true;window.ezTcfConsent.select_personalized_content=true;window.ezTcfConsent.understand_audiences=true;window.ezTcfConsent.use_limited_data_to_select_content=true;window.ezTcfConsent.select_personalized_content=true;}
+function _clearEzConsentCookie(){document.cookie="ezCMPCookieConsent=tcf2;Domain=.embeddedthere.com;Path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT";}
+_clearEzConsentCookie();if(typeof window.__tcfapi!=="undefined"){window.ezgconsent=false;var amazonHasRun=false;function _ezAllowed(tcdata,purpose){return(tcdata.purpose.consents[purpose]||tcdata.purpose.legitimateInterests[purpose]);}
+function _handleConsentDecision(tcdata){window.ezTcfConsent.loaded=true;if(!tcdata.vendor.consents["347"]&&!tcdata.vendor.legitimateInterests["347"]){window._emitEzConsentEvent();return;}
+window.ezTcfConsent.store_info=_ezAllowed(tcdata,"1");window.ezTcfConsent.develop_and_improve_services=_ezAllowed(tcdata,"10");window.ezTcfConsent.measure_content_performance=_ezAllowed(tcdata,"8");window.ezTcfConsent.select_basic_ads=_ezAllowed(tcdata,"2");window.ezTcfConsent.create_ad_profile=_ezAllowed(tcdata,"3");window.ezTcfConsent.select_personalized_ads=_ezAllowed(tcdata,"4");window.ezTcfConsent.create_content_profile=_ezAllowed(tcdata,"5");window.ezTcfConsent.measure_ad_performance=_ezAllowed(tcdata,"7");window.ezTcfConsent.use_limited_data_to_select_content=_ezAllowed(tcdata,"11");window.ezTcfConsent.select_personalized_content=_ezAllowed(tcdata,"6");window.ezTcfConsent.understand_audiences=_ezAllowed(tcdata,"9");window._emitEzConsentEvent();}
+function _handleGoogleConsentV2(tcdata){if(!tcdata||!tcdata.purpose||!tcdata.purpose.consents){return;}
+var googConsentV2={};if(tcdata.purpose.consents[1]){googConsentV2.ad_storage='granted';googConsentV2.analytics_storage='granted';}
+if(tcdata.purpose.consents[3]&&tcdata.purpose.consents[4]){googConsentV2.ad_personalization='granted';}
+if(tcdata.purpose.consents[1]&&tcdata.purpose.consents[7]){googConsentV2.ad_user_data='granted';}
+if(googConsentV2.analytics_storage=='denied'){gtag('set','url_passthrough',true);}
+gtag('consent','update',googConsentV2);}
+__tcfapi("addEventListener",2,function(tcdata,success){if(!success||!tcdata){window._emitEzConsentEvent();return;}
+if(!tcdata.gdprApplies){_setAllEzConsentTrue();window._emitEzConsentEvent();return;}
+if(tcdata.eventStatus==="useractioncomplete"||tcdata.eventStatus==="tcloaded"){if(typeof gtag!='undefined'){_handleGoogleConsentV2(tcdata);}
+_handleConsentDecision(tcdata);if(tcdata.purpose.consents["1"]===true&&tcdata.vendor.consents["755"]!==false){window.ezgconsent=true;(adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=0;}
+if(window.__ezconsent){__ezconsent.setEzoicConsentSettings(ezConsentCategories);}
+__tcfapi("removeEventListener",2,function(success){return null;},tcdata.listenerId);if(!(tcdata.purpose.consents["1"]===true&&_ezAllowed(tcdata,"2")&&_ezAllowed(tcdata,"3")&&_ezAllowed(tcdata,"4"))){if(typeof __ez=="object"&&typeof __ez.bit=="object"&&typeof window["_ezaq"]=="object"&&typeof window["_ezaq"]["page_view_id"]=="string"){__ez.bit.Add(window["_ezaq"]["page_view_id"],[new __ezDotData("non_personalized_ads",true),]);}}}});}else{_setAllEzConsentTrue();window._emitEzConsentEvent();}})(window,document);</script><script src="./Getting Started with FreeRTOS in STM32_ Example Code included – Embedded There_files/id5-api.js.download" async=""></script></body></html>
